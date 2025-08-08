@@ -9,15 +9,15 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.1.0 – Project Skeleton & Basic UI**
 **Goal:** App opens, shows static swipe cards with placeholder content.  
 **Tasks:**
-- [ ] Create HomeScreen
-- [ ] Build **Swipe Card layout** with hardcoded dummy data
-- [ ] Implement basic swipe animations
-- [ ] Create placeholder card types:
-  - [ ] Next Match
-  - [ ] Last Match
-  - [ ] Top Scorer
-  - [ ] League Standing
-  - [ ] Fun Fact
+- [x] Create HomeScreen
+- [x] Build **Swipe Card layout** with hardcoded dummy data
+- [x] Implement basic swipe animations
+- [x] Create placeholder card types:
+  - [x] Info 
+  - [x] Next Match
+  - [x] Last Match
+  - [x] Top Scorer
+  - [x] League Standing
 
 ---
 
@@ -26,12 +26,6 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 **Tasks:**
 - [ ] Choose API (TheSportsDB or API-Football free tier)
 - [ ] Setup **Retrofit** (or Ktor Client)
-- [ ] Fetch:
-  - [ ] List of teams
-  - [ ] Next match for a team
-  - [ ] Last match result
-  - [ ] Top scorer stats
-  - [ ] League standings
 - [ ] Display real API data in cards
 
 ---
@@ -82,6 +76,7 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v1.0.0 – Public Release**
 **Goal:** Ready for Indus Appstore submission.  
 **Tasks:**
+- [ ] Strings
 - [ ] Settings screen:
   - [ ] Change favourite team
   - [ ] Toggle theme
