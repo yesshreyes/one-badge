@@ -9,8 +9,6 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.1.0 – Project Skeleton & Basic UI**
 **Goal:** App opens, shows static swipe cards with placeholder content.  
 **Tasks:**
-- [ ] Create Jetpack Compose project structure
-- [ ] Add **Splash Screen**
 - [ ] Build **Swipe Card layout** (Bumble-style) with hardcoded dummy data
 - [ ] Implement basic swipe animations
 - [ ] Create placeholder card types:
@@ -52,6 +50,7 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.4.0 – UI Polish & Dynamic Themes**
 **Goal:** Smooth, sexy UI that feels premium.  
 **Tasks:**
+- [ ] Replace default splash with animated Compose splash screen
 - [ ] Gradient backgrounds in team colors
 - [ ] Card animations (scale, rotation, bounce)
 - [ ] Live countdown timer for next match
