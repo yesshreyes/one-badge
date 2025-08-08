@@ -9,7 +9,8 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.1.0 – Project Skeleton & Basic UI**
 **Goal:** App opens, shows static swipe cards with placeholder content.  
 **Tasks:**
-- [ ] Build **Swipe Card layout** (Bumble-style) with hardcoded dummy data
+- [ ] Create HomeScreen
+- [ ] Build **Swipe Card layout** with hardcoded dummy data
 - [ ] Implement basic swipe animations
 - [ ] Create placeholder card types:
   - [ ] Next Match
@@ -17,7 +18,6 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
   - [ ] Top Scorer
   - [ ] League Standing
   - [ ] Fun Fact
-- [ ] Navigation setup (Splash → Home)
 
 ---
 
