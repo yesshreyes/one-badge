@@ -10,6 +10,7 @@ import com.example.one_badge.ui.screens.HomeViewModel
 import com.example.one_badge.ui.theme.OnebadgeTheme
 
 class MainActivity : ComponentActivity() {
+
     private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
