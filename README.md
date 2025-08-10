@@ -24,9 +24,9 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.2.0 – API Integration (Read-Only)**
 **Goal:** Replace static data with live data from API.  
 **Tasks:**
-- [ ] Choose API (TheSportsDB or API-Football free tier)
-- [ ] Setup **Retrofit** (or Ktor Client)
-- [ ] Display real API data in cards
+- [x] Choose API (TheSportsDB or API-Football free tier)
+- [x] Setup **Retrofit** (or Ktor Client)
+- [x] Display real API data in cards
 
 ---
 

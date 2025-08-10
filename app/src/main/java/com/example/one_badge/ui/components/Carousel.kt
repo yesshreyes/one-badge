@@ -1,3 +1,5 @@
+package com.example.one_badge.ui.components
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,21 +13,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlin.math.absoluteValue
-import com.example.one_badge.data.models.BadgeCard
-import com.example.one_badge.data.models.sampleCards
-import com.example.one_badge.ui.components.CardContent
+import com.example.one_badge.data.models.TeamCard
 
 fun lerp(start: Float, stop: Float, fraction: Float): Float {
     return start + fraction * (stop - start)
 }
 
 @Composable
-fun CarouselWithIndicators(
-    cards: List<BadgeCard>,
-    onCardClick: (BadgeCard) -> Unit,
+fun Carousel(
+    cards: List<TeamCard>,
+    onCardClick: (TeamCard) -> Unit,
 ) {
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { cards.size })
 
@@ -91,15 +90,5 @@ fun CarouselWithIndicators(
                 }
             }
         }
-
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CarouselWithIndicatorsPreview() {
-    CarouselWithIndicators(
-        cards = sampleCards,
-        onCardClick = {}
-    )
 }

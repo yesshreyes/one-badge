@@ -1,66 +1,82 @@
 package com.example.one_badge.ui.screens
 
-import CarouselWithIndicators
+import com.example.one_badge.ui.components.Carousel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.one_badge.data.models.BadgeCard
-import com.example.one_badge.data.models.sampleCards
+import coil.compose.AsyncImage
+import com.example.one_badge.data.models.TeamCard
+import com.example.one_badge.data.models.CardType
 import com.example.one_badge.ui.components.SwipeCard
 import com.example.one_badge.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
-    val cards = remember { sampleCards }
-    var selectedCard by remember { mutableStateOf<BadgeCard?>(null) }
+fun HomeScreen(viewModel: HomeViewModel) {
+    val teamLogoUrl by viewModel.logoUrl.collectAsState()
+    val teamBadgeUrl by viewModel.badgeUrl.collectAsState()
+
+    val teamInfo by viewModel.teamInfo.collectAsState()
+    val teamDescription by viewModel.teamDescription.collectAsState()
+    val teamEquipment by viewModel.teamEquipment.collectAsState()
+    val socialMedia by viewModel.socialMedia.collectAsState()
+
+    var selectedCard by remember { mutableStateOf<TeamCard?>(null) }
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchTeamData("Real Madrid")
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    ) {
+                        Image(
                             painter = painterResource(id = R.drawable.ic_onebadge_logo),
                             contentDescription = "One Badge Logo",
-                            modifier = Modifier.size(32.dp)
+                            modifier = Modifier.size(40.dp),
                         )
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Text(
-                            text = "One Badge",
-                            style = MaterialTheme.typography.titleLarge
-                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Row {
+                            Text(
+                                text = "One",
+                                style = MaterialTheme.typography.titleLarge.copy(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
+                                )
+                            )
+                            Text(
+                                text = "Badge",
+                                style = MaterialTheme.typography.titleLarge.copy(
+                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                                    fontWeight = androidx.compose.ui.text.font.FontWeight.Medium
+                                )
+                            )
+                        }
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors()
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    titleContentColor = MaterialTheme.colorScheme.onSurfaceVariant
+                ),
+                modifier = Modifier.fillMaxWidth()
             )
         },
         content = { paddingValues ->
@@ -71,36 +87,106 @@ fun HomeScreen() {
                     .background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(Modifier.height(34.dp))
-                // Team name directly below AppBar
-                Text(
-                    text = "Real Madrid",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(bottom = 12.dp)
-                )
-                
-                Spacer(Modifier.height(10.dp))
+                if (!teamLogoUrl.isNullOrBlank()) {
+                    AsyncImage(
+                        model = teamLogoUrl,
+                        contentDescription = "Team Logo",
+                        modifier = Modifier
+                            .size(120.dp)
+                            .padding(bottom = 12.dp)
+                    )
+                } else {
+                    Text(
+                        text = "Team",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(bottom = 12.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                val cards = mutableListOf<TeamCard>()
+
+                teamInfo?.let {
+                    cards.add(
+                        TeamCard(
+                            id = 1L,
+                            type = CardType.Info,
+                            title = "Team Info",
+                            subtitle = it.teamName,
+                            details = """
+                                Formed: ${it.formedYear}
+                                Stadium: ${it.stadium}
+                                Location: ${it.location}
+                                Capacity: ${it.stadiumCapacity}
+                            """.trimIndent()
+                        )
+                    )
+                }
+
+                teamDescription?.let {
+                    cards.add(
+                        TeamCard(
+                            id = 2L,
+                            type = CardType.Info,
+                            title = "Description",
+                            subtitle = teamInfo?.teamName ?: "Team",
+                            details = it
+                        )
+                    )
+                }
+
+                teamEquipment?.let {
+                    cards.add(
+                        TeamCard(
+                            id = 3L,
+                            type = CardType.Info,
+                            title = "Equipment",
+                            subtitle = teamInfo?.teamName ?: "Team",
+                            details = it.ifBlank { "No equipment info" }
+                        )
+                    )
+                }
+
+                socialMedia?.let { it ->
+                    cards.add(
+                        TeamCard(
+                            id = 4L,
+                            type = CardType.Info,
+                            title = "Social Media",
+                            subtitle = teamInfo?.teamName ?: "Team",
+                            details = listOfNotNull(
+                                if (it.facebook.isNotBlank()) "Facebook: ${it.facebook}" else null,
+                                if (it.twitter.isNotBlank()) "Twitter: ${it.twitter}" else null,
+                                if (it.instagram.isNotBlank()) "Instagram: ${it.instagram}" else null,
+                                if (it.youtube.isNotBlank()) "YouTube: ${it.youtube}" else null
+                            ).takeIf { it.isNotEmpty() }?.joinToString("\n") ?: "No social links"
+                        )
+                    )
+                }
 
                 if (selectedCard == null) {
                     Box(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp)
                     ) {
-                        CarouselWithIndicators(
+                        Carousel(
                             cards = cards,
-                            onCardClick = { selectedCard = it },
+                            onCardClick = { selectedCard = it }
                         )
                     }
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_onebadge_logo), // replace with your crest drawable resource
-                        contentDescription = "Crest Logo",
-                        modifier = Modifier
-                            .size(220.dp)
-                            .padding(top = 16.dp, bottom = 24.dp)
-                            .alpha(0.5f)
-                    )
+
+                    if (!teamBadgeUrl.isNullOrBlank()) {
+                        AsyncImage(
+                            model = teamBadgeUrl,
+                            contentDescription = "Team Crest",
+                            modifier = Modifier
+                                .size(150.dp)
+                                .padding(bottom = 24.dp)
+                                .alpha(0.5f)
+                        )
+                    }
                 } else {
                     Box(
                         modifier = Modifier
@@ -112,18 +198,11 @@ fun HomeScreen() {
                         SwipeCard(
                             card = selectedCard!!,
                             onSwiped = { _ -> selectedCard = null },
-                            modifier = Modifier
-                                .fillMaxSize()
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
                 }
             }
         }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
 }

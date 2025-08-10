@@ -22,11 +22,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.example.one_badge.data.models.BadgeCard
-import com.example.one_badge.data.models.sampleCards
+import com.example.one_badge.data.models.TeamCard
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -35,7 +33,7 @@ enum class Direction { LEFT, RIGHT }
 
 @Composable
 fun SwipeCard(
-    card: BadgeCard,
+    card: TeamCard,
     onSwiped: (Direction) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -92,17 +90,9 @@ fun SwipeCard(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SwipeCardPreview() {
-    SwipeCard(
-        card = sampleCards.first(),
-        onSwiped = {}
-    )
-}
 
 @Composable
-fun CardContent(card: BadgeCard, modifier: Modifier = Modifier) {
+fun CardContent(card: TeamCard, modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
         Text(card.title, style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(6.dp))
