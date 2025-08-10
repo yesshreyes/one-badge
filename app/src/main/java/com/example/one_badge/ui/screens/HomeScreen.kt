@@ -4,10 +4,13 @@ import com.example.one_badge.ui.components.Carousel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.*
@@ -34,6 +37,9 @@ fun HomeScreen(viewModel: HomeViewModel) {
     val socialMedia by viewModel.socialMedia.collectAsState()
 
     var selectedCard by remember { mutableStateOf<TeamCard?>(null) }
+
+    var showTeamDialog by remember { mutableStateOf(false) }
+    val teams = listOf("Real Madrid", "Barcelona", "Arsenal", "Chelsea")
 
     LaunchedEffect(Unit) {
         viewModel.fetchTeamData("Real Madrid")
@@ -202,6 +208,40 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         )
                     }
                 }
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(
+                    onClick = { showTeamDialog = true }
+                ) {
+                    Text("Select Team")
+                }
+            }
+            if (showTeamDialog) {
+                AlertDialog(
+                    onDismissRequest = { showTeamDialog = false },
+                    title = { Text("Select a Team") },
+                    text = {
+                        Column {
+                            teams.forEach { team ->
+                                TextButton(
+                                    onClick = {
+                                        viewModel.fetchTeamData(team)
+                                        showTeamDialog = false
+                                    }
+                                ) {
+                                    Text(team)
+                                }
+                            }
+                        }
+                    },
+                    confirmButton = {},
+                    dismissButton = {
+                        TextButton(
+                            onClick = { showTeamDialog = false }
+                        ) {
+                            Text("Cancel")
+                        }
+                    }
+                )
             }
         }
     )

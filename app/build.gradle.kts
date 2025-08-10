@@ -61,4 +61,6 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.kotlinx.coroutines.android)
+//    implementation(libs.material3)
+    implementation("androidx.compose.material3:material3:1.2.1")
 }
