@@ -1,8 +1,11 @@
-package com.example.one_badge.ui.screens
+package com.example.one_badge.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,17 +22,26 @@ import com.example.one_badge.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    selectedTeam: String,
+    onBackToTeamSelection: (() -> Unit)? = null
+) {
     val uiState by viewModel.uiState.collectAsState()
     var selectedCard by remember { mutableStateOf<TeamCard?>(null) }
-    var showTeamDialog by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        viewModel.fetchTeamData("Real Madrid")
+    // Fetch team data when selectedTeam changes
+    LaunchedEffect(selectedTeam) {
+        viewModel.fetchTeamData(selectedTeam)
     }
 
     Scaffold(
-        topBar = { AppTopBar() },
+        topBar = {
+            AppTopBar(
+                onBackClick = onBackToTeamSelection,
+                teamName = selectedTeam
+            )
+        },
         content = { paddingValues ->
             Column(
                 modifier = Modifier
@@ -64,30 +76,19 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         TeamLogo(logoUrl = uiState.logoUrl)
                     }
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(onClick = { showTeamDialog = true }) {
-                    Text("Select Team")
-                }
             }
         }
     )
-
-    if (showTeamDialog) {
-        TeamSelectionDialog(
-            onTeamSelected = { team ->
-                viewModel.fetchTeamData(team)
-                showTeamDialog = false
-            },
-            onDismiss = { showTeamDialog = false }
-        )
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AppTopBar() {
+private fun AppTopBar(
+    onBackClick: (() -> Unit)? = null,
+    teamName: String
+) {
+    var showMenu by remember { mutableStateOf(false) }
+
     TopAppBar(
         title = {
             Row(
@@ -110,6 +111,48 @@ private fun AppTopBar() {
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
                 )
+
+                // Show selected team name
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = teamName,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        },
+        actions = {
+            // Hamburger menu
+            onBackClick?.let { callback ->
+                Box {
+                    IconButton(onClick = { showMenu = true }) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = "Menu",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+
+                    DropdownMenu(
+                        expanded = showMenu,
+                        onDismissRequest = { showMenu = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Change Team") },
+                            onClick = {
+                                showMenu = false
+                                callback()
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Refresh,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        )
+                    }
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -117,6 +160,7 @@ private fun AppTopBar() {
         )
     )
 }
+
 
 @Composable
 private fun TeamLogo(logoUrl: String) {
@@ -155,7 +199,6 @@ private fun CarouselSection(
     }
 }
 
-
 @Composable
 private fun TeamBanner(bannerUrl: String) {
     if (bannerUrl.isNotBlank()) {
@@ -170,7 +213,6 @@ private fun TeamBanner(bannerUrl: String) {
         )
     }
 }
-
 
 @Composable
 private fun SwipeCardSection(
@@ -197,33 +239,5 @@ private fun ErrorMessage(error: String) {
         text = error,
         color = MaterialTheme.colorScheme.error,
         modifier = Modifier.padding(16.dp)
-    )
-}
-
-@Composable
-private fun TeamSelectionDialog(
-    onTeamSelected: (String) -> Unit,
-    onDismiss: () -> Unit
-) {
-    val teams = listOf("Real Madrid", "Barcelona", "Arsenal", "Chelsea")
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Select a Team") },
-        text = {
-            Column {
-                teams.forEach { team ->
-                    TextButton(onClick = { onTeamSelected(team) }) {
-                        Text(team)
-                    }
-                }
-            }
-        },
-        confirmButton = {},
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel")
-            }
-        }
     )
 }

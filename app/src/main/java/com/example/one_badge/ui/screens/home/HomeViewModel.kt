@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.screens
+package com.example.one_badge.ui.screens.home
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
