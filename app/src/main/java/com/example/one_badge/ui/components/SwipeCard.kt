@@ -2,21 +2,10 @@ package com.example.one_badge.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.runtime.getValue
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -61,7 +50,7 @@ fun SwipeCard(
                     },
                     onDragEnd = {
                         scope.launch {
-                            val threshold = 300f // pixels threshold to consider swipe
+                            val threshold = 300f
                             if (abs(offsetX.value) > threshold) {
                                 val direction = if (offsetX.value > 0) Direction.RIGHT else Direction.LEFT
                                 val targetX = if (direction == Direction.RIGHT) 1000f else -1000f
@@ -90,15 +79,4 @@ fun SwipeCard(
     }
 }
 
-
-@Composable
-fun CardContent(card: TeamCard, modifier: Modifier = Modifier) {
-    Column(modifier = modifier.padding(16.dp)) {
-        Text(card.title, style = MaterialTheme.typography.titleLarge)
-        Spacer(Modifier.height(6.dp))
-        Text(card.subtitle, style = MaterialTheme.typography.bodyMedium)
-        Spacer(Modifier.weight(1f))
-        Text(card.details, style = MaterialTheme.typography.bodySmall)
-    }
-}
 

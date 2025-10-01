@@ -33,11 +33,9 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.3.0 – Team Selection & Data Binding**
 **Goal:** User chooses their team → cards show relevant data.  
 **Tasks:**
-- [ ] Add **Onboarding/Team Selection** screen with search
-- [ ] Save team ID in **DataStore**
-- [ ] Bind cards to selected team
-- [ ] Pull-to-refresh on Home
-- [ ] Light/dark mode support (static)
+- [x] Add **Onboarding/Team Selection** screen with search
+- [x] Save team ID in **DataStore**
+- [x] Bind cards to selected team
 
 ---
 
@@ -50,6 +48,7 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 - [ ] Live countdown timer for next match
 - [ ] Shimmer loading effect
 - [ ] Looping card stack
+- [ ] Light/dark mode support (static)
 
 ---
 
@@ -60,6 +59,7 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 - [ ] Show cached data if offline
 - [ ] Error states (Retry, “No data”)
 - [ ] API rate limit handling
+- [ ] Pull-to-refresh on Home
 
 ---
 

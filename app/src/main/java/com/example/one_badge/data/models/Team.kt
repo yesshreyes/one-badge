@@ -1,40 +1,66 @@
 package com.example.one_badge.data.models
 
 data class TeamResponse(
-    val teams: List<Team>?
+    val teams: List<Team>? = null
 )
 
 data class Team(
-    val idTeam: String?,
-    val strTeam: String?,
-    val strLogo: String?,
-    val strBadge: String?,
-    val intFormedYear: String?,
-    val strStadium: String?,
-    val strLocation: String?,
-    val intStadiumCapacity: String?,
-    val strDescriptionEN: String?,
-    val strEquipment: String?,
-    val strFacebook: String?,
-    val strTwitter: String?,
-    val strInstagram: String?,
-    val strYoutube: String?
+    val idTeam: String? = null,
+    val strTeam: String? = null,
+    val strTeamShort: String? = null,
+    val strLeague: String? = null,
+    val strCountry: String? = null,
+    val strLogo: String? = null,
+    val strBadge: String? = null,
+    val strBanner: String? = null,
+    val intFormedYear: String? = null,
+    val strStadium: String? = null,
+    val strLocation: String? = null,
+    val intStadiumCapacity: String? = null,
+    val strDescriptionEN: String? = null,
+    val strEquipment: String? = null,
+    val strFacebook: String? = null,
+    val strTwitter: String? = null,
+    val strInstagram: String? = null,
+    val strYoutube: String? = null
 )
 
-
-data class TeamInfoCard(
-    val teamName: String,
-    val formedYear: String,
-    val stadium: String,
-    val location: String,
-    val stadiumCapacity: String,
-    val badgeUrl: String,
-    val logoUrl: String
+data class TeamCardData(
+    val teamName: String = "",
+    val teamShort: String = "",
+    val league: String = "",
+    val country: String = "",
+    val formedYear: String = "N/A",
+    val stadium: String = "N/A",
+    val location: String = "N/A",
+    val stadiumCapacity: String = "N/A",
+    val description: String = "",
+    val jersey: String = "",
+    val facebook: String = "",
+    val twitter: String = "",
+    val instagram: String = "",
+    val youtube: String = "",
+    val badgeUrl: String = "",
+    val logoUrl: String = "",
+    val bannerUrl: String = ""
 )
 
-data class SocialMediaCard(
-    val facebook: String,
-    val twitter: String,
-    val instagram: String,
-    val youtube: String
+fun Team.toTeamCardData(): TeamCardData = TeamCardData(
+    teamName = strTeam ?: "Unknown Team",
+    teamShort = strTeamShort ?: "",
+    league = strLeague ?: "",
+    country = strCountry ?: "",
+    formedYear = intFormedYear ?: "N/A",
+    stadium = strStadium ?: "N/A",
+    location = strLocation ?: "N/A",
+    stadiumCapacity = intStadiumCapacity ?: "N/A",
+    description = strDescriptionEN ?: "",
+    jersey = strEquipment ?: "",
+    facebook  = strFacebook ?: "",
+    twitter = strTwitter ?: "",
+    instagram = strInstagram ?: "",
+    youtube = strYoutube ?: "",
+    badgeUrl = strBadge ?: "",
+    logoUrl = strLogo ?: "",
+    bannerUrl = strBanner ?: ""
 )
