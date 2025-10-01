@@ -29,7 +29,6 @@ data class HomeUiState(
                 add(CardData.Jersey(data).toTeamCard())
             }
 
-            // Always add social media card - let the card itself handle empty state
             add(CardData.SocialMedia(data).toTeamCard())
         }
     } ?: emptyList()

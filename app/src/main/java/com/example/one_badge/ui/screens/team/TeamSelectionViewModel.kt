@@ -16,7 +16,8 @@ data class TeamSelectionItem(
 data class TeamSelectionUiState(
     val teams: List<TeamSelectionItem> = emptyList(),
     val isLoading: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    val selectedTeam: String? = null
 )
 
 class TeamSelectionViewModel(
@@ -44,6 +45,16 @@ class TeamSelectionViewModel(
         "Borussia Dortmund"
     )
 
+    init {
+        // Check for existing selected team when ViewModel is created
+        viewModelScope.launch {
+            val prefs = repository.getUserPreferencesOnce()
+            if (prefs?.selectedTeam != null && !prefs.isFirstLaunch) {
+                _uiState.value = _uiState.value.copy(selectedTeam = prefs.selectedTeam)
+            }
+        }
+    }
+
     fun loadTeams() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
@@ -67,7 +78,6 @@ class TeamSelectionViewModel(
 
                     } catch (e: Exception) {
                         Log.e("TeamSelectionVM", "Failed to load $teamName", e)
-                        // Add team without badge if API call fails
                         teamsWithBadges.add(
                             TeamSelectionItem(
                                 name = teamName,
@@ -77,7 +87,7 @@ class TeamSelectionViewModel(
                     }
                 }
 
-                _uiState.value = TeamSelectionUiState(
+                _uiState.value = _uiState.value.copy(
                     teams = teamsWithBadges.sortedBy { it.name },
                     isLoading = false
                 )
@@ -88,6 +98,31 @@ class TeamSelectionViewModel(
                     isLoading = false,
                     error = "Failed to load teams"
                 )
+            }
+        }
+    }
+
+    fun selectTeam(teamName: String) {
+        viewModelScope.launch {
+            try {
+                repository.saveSelectedTeam(teamName)
+                _uiState.value = _uiState.value.copy(selectedTeam = teamName)
+                Log.d("TeamSelectionVM", "Team $teamName saved to preferences")
+            } catch (e: Exception) {
+                Log.e("TeamSelectionVM", "Error saving team selection", e)
+                _uiState.value = _uiState.value.copy(error = "Failed to save team selection")
+            }
+        }
+    }
+
+    fun clearTeamSelection() {
+        viewModelScope.launch {
+            try {
+                repository.clearSelectedTeam()
+                _uiState.value = _uiState.value.copy(selectedTeam = null)
+                Log.d("TeamSelectionVM", "Team selection cleared")
+            } catch (e: Exception) {
+                Log.e("TeamSelectionVM", "Error clearing team selection", e)
             }
         }
     }

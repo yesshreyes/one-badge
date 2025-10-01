@@ -4,23 +4,31 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
+import androidx.lifecycle.lifecycleScope
+import com.example.one_badge.data.local.AppDatabase // You'll need to create this
 import com.example.one_badge.data.remote.RetrofitInstance
 import com.example.one_badge.data.repository.TeamRepository
-import com.example.one_badge.ui.screens.TeamSelectionScreen
+import com.example.one_badge.ui.screens.team.TeamSelectionScreen
 import com.example.one_badge.ui.screens.home.HomeScreen
 import com.example.one_badge.ui.screens.home.HomeViewModel
 import com.example.one_badge.ui.screens.team.TeamSelectionViewModel
 import com.example.one_badge.ui.theme.OnebadgeTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var teamSelectionViewModel: TeamSelectionViewModel
+    private lateinit var repository: TeamRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val repository = TeamRepository(RetrofitInstance.api)
+        // Initialize database and repository
+        val database = AppDatabase.getDatabase(this)
+        val userPreferencesDao = database.userPreferencesDao()
+
+        repository = TeamRepository(RetrofitInstance.api, userPreferencesDao)
         homeViewModel = HomeViewModel(repository)
         teamSelectionViewModel = TeamSelectionViewModel(repository)
 
@@ -33,21 +41,43 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun MainContent() {
-        var selectedTeam by remember { mutableStateOf<String?>(null) }
+        val teamSelectionUiState by teamSelectionViewModel.uiState.collectAsState()
+        var currentScreen by remember { mutableStateOf<String?>(null) }
 
-        if (selectedTeam == null) {
-            TeamSelectionScreen(
-                viewModel = teamSelectionViewModel,
-                onTeamSelected = { teamName ->
-                    selectedTeam = teamName
+        // Check for saved team on app start
+        LaunchedEffect(Unit) {
+            lifecycleScope.launch {
+                val isFirstLaunch = repository.isFirstLaunch()
+                if (!isFirstLaunch) {
+                    val prefs = repository.getUserPreferencesOnce()
+                    currentScreen = prefs?.selectedTeam
                 }
-            )
-        } else {
-            HomeScreen(
-                viewModel = homeViewModel,
-                selectedTeam = selectedTeam!!,
-                onBackToTeamSelection = { selectedTeam = null }
-            )
+            }
+        }
+
+        // Update screen based on team selection state
+        LaunchedEffect(teamSelectionUiState.selectedTeam) {
+            currentScreen = teamSelectionUiState.selectedTeam
+        }
+
+        when {
+            currentScreen == null -> {
+                TeamSelectionScreen(
+                    viewModel = teamSelectionViewModel,
+                    onTeamSelected = { teamName ->
+                        teamSelectionViewModel.selectTeam(teamName)
+                    }
+                )
+            }
+            else -> {
+                HomeScreen(
+                    viewModel = homeViewModel,
+                    selectedTeam = currentScreen!!,
+                    onBackToTeamSelection = {
+                        teamSelectionViewModel.clearTeamSelection()
+                    }
+                )
+            }
         }
     }
 }

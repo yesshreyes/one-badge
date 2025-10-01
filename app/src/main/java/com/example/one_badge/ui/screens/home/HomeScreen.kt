@@ -30,7 +30,6 @@ fun HomeScreen(
     val uiState by viewModel.uiState.collectAsState()
     var selectedCard by remember { mutableStateOf<TeamCard?>(null) }
 
-    // Fetch team data when selectedTeam changes
     LaunchedEffect(selectedTeam) {
         viewModel.fetchTeamData(selectedTeam)
     }
@@ -112,7 +111,6 @@ private fun AppTopBar(
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
                 )
 
-                // Show selected team name
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = teamName,
@@ -122,7 +120,6 @@ private fun AppTopBar(
             }
         },
         actions = {
-            // Hamburger menu
             onBackClick?.let { callback ->
                 Box {
                     IconButton(onClick = { showMenu = true }) {

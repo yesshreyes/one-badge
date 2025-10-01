@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.screens
+package com.example.one_badge.ui.screens.team
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,8 +21,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.one_badge.R
-import com.example.one_badge.ui.screens.team.TeamSelectionItem
-import com.example.one_badge.ui.screens.team.TeamSelectionViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -162,7 +161,6 @@ private fun TeamCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Team Badge
             Box(
                 modifier = Modifier
                     .size(60.dp)
@@ -177,7 +175,6 @@ private fun TeamCard(
                         modifier = Modifier.size(50.dp)
                     )
                 } else {
-                    // Fallback text if no badge
                     Text(
                         text = team.name.take(3).uppercase(),
                         style = MaterialTheme.typography.labelSmall,
@@ -188,7 +185,6 @@ private fun TeamCard(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Team Name
             Text(
                 text = team.name,
                 style = MaterialTheme.typography.titleMedium,
@@ -196,7 +192,6 @@ private fun TeamCard(
                 modifier = Modifier.weight(1f)
             )
 
-            // Arrow indicator
             Text(
                 text = "›",
                 style = MaterialTheme.typography.headlineLarge,
@@ -267,7 +262,7 @@ private fun HardcoreFanDialog(
                     lineHeight = 20.sp
                 )
 
-                Divider(
+                HorizontalDivider(
                     modifier = Modifier.width(100.dp),
                     thickness = 2.dp,
                     color = MaterialTheme.colorScheme.primary
