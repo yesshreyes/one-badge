@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -73,18 +74,18 @@ fun TeamSelectionScreen(
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_onebadge_logo),
-                            contentDescription = "One Badge Logo",
+                            contentDescription = stringResource(R.string.one_badge_logo_desc),
                             modifier = Modifier.size(40.dp),
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = "One",
+                            text = stringResource(R.string.app_name_one),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.primary,
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = "Badge",
+                            text = stringResource(R.string.app_name_badge),
                             style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                             fontWeight = FontWeight.Bold,
@@ -113,7 +114,7 @@ fun TeamSelectionScreen(
                     ) {
                         CircularProgressIndicator()
                         Text(
-                            text = "Loading teams...",
+                            text = stringResource(R.string.loading_teams),
                             style = MaterialTheme.typography.bodyMedium,
                         )
                     }
@@ -138,7 +139,7 @@ fun TeamSelectionScreen(
                             color = MaterialTheme.colorScheme.error,
                         )
                         Button(onClick = { viewModel.loadTeams() }) {
-                            Text("Retry")
+                            Text(stringResource(R.string.retry))
                         }
                     }
                 }
@@ -204,7 +205,7 @@ private fun TeamCard(
                 if (team.badgeUrl.isNotBlank()) {
                     AsyncImage(
                         model = team.badgeUrl,
-                        contentDescription = "${team.name} Badge",
+                        contentDescription = stringResource(R.string.team_badge_format_desc, team.name),
                         modifier = Modifier.size(50.dp),
                     )
                 } else {
