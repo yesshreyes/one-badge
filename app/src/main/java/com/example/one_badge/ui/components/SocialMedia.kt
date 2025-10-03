@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -29,14 +30,14 @@ fun SocialMediaLinks(details: String) {
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(12.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         if (details.contains("Facebook")) {
             val facebookUrl = extractUrl(details, "Facebook")
             ClickableSocialItem(
                 iconRes = R.drawable.facebook,
                 text = "Facebook",
-                onClick = { openUrl(context, "https://$facebookUrl") }
+                onClick = { openUrl(context, "https://$facebookUrl") },
             )
         }
         if (details.contains("Twitter")) {
@@ -44,7 +45,7 @@ fun SocialMediaLinks(details: String) {
             ClickableSocialItem(
                 iconRes = R.drawable.x,
                 text = "Twitter",
-                onClick = { openUrl(context, "https://$twitterUrl") }
+                onClick = { openUrl(context, "https://$twitterUrl") },
             )
         }
         if (details.contains("Instagram")) {
@@ -52,7 +53,7 @@ fun SocialMediaLinks(details: String) {
             ClickableSocialItem(
                 iconRes = R.drawable.instagram,
                 text = "Instagram",
-                onClick = { openUrl(context, "https://$instagramUrl") }
+                onClick = { openUrl(context, "https://$instagramUrl") },
             )
         }
         if (details.contains("YouTube")) {
@@ -60,7 +61,7 @@ fun SocialMediaLinks(details: String) {
             ClickableSocialItem(
                 iconRes = R.drawable.youtube,
                 text = "YouTube",
-                onClick = { openUrl(context, "https://$youtubeUrl") }
+                onClick = { openUrl(context, "https://$youtubeUrl") },
             )
         }
     }
@@ -70,36 +71,44 @@ fun SocialMediaLinks(details: String) {
 private fun ClickableSocialItem(
     iconRes: Int,
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(vertical = 8.dp, horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }
+                .padding(vertical = 8.dp, horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             painter = painterResource(id = iconRes),
             contentDescription = "$text Logo",
-            modifier = Modifier.size(24.dp)
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
+            modifier = Modifier.size(24.dp),
         )
         Spacer(modifier = Modifier.width(12.dp))
         Text(
             text = text,
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
 
-private fun extractUrl(details: String, platform: String): String {
+private fun extractUrl(
+    details: String,
+    platform: String,
+): String {
     val lines = details.split("\n")
     val platformLine = lines.find { it.contains(platform) }
     return platformLine?.substringAfter("$platform\n") ?: ""
 }
 
-private fun openUrl(context: android.content.Context, url: String) {
+private fun openUrl(
+    context: android.content.Context,
+    url: String,
+) {
     val intent = Intent(Intent.ACTION_VIEW, url.toUri())
     context.startActivity(intent)
 }

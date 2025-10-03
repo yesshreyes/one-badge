@@ -1,7 +1,15 @@
 package com.example.one_badge.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,29 +31,34 @@ import coil.compose.AsyncImage
 import com.example.one_badge.data.models.TeamCard
 
 @Composable
-fun CardContent(card: TeamCard, modifier: Modifier = Modifier) {
+fun CardContent(
+    card: TeamCard,
+    modifier: Modifier = Modifier,
+) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(20.dp)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(20.dp)
+                .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = card.title,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Spacer(Modifier.height(4.dp))
 
         Box(
-            modifier = Modifier
-                .width(40.dp)
-                .height(3.dp)
-                .clip(RoundedCornerShape(2.dp))
-                .background(MaterialTheme.colorScheme.primary)
+            modifier =
+                Modifier
+                    .width(40.dp)
+                    .height(3.dp)
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(MaterialTheme.colorScheme.primary),
         )
 
         Spacer(Modifier.height(12.dp))
@@ -55,22 +68,23 @@ fun CardContent(card: TeamCard, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         if (card.badgeUrl.isNotBlank()) {
             Spacer(Modifier.height(20.dp))
             Box(
-                modifier = Modifier
-                    .size(100.dp)
-                    .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.1f)),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.1f)),
+                contentAlignment = Alignment.Center,
             ) {
                 AsyncImage(
                     model = card.badgeUrl,
                     contentDescription = "Team Badge",
-                    modifier = Modifier.size(85.dp)
+                    modifier = Modifier.size(85.dp),
                 )
             }
         }
@@ -80,11 +94,12 @@ fun CardContent(card: TeamCard, modifier: Modifier = Modifier) {
             AsyncImage(
                 model = card.jerseyImageUrl,
                 contentDescription = "Team Equipment",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-                    .clip(RoundedCornerShape(16.dp)),
-                contentScale = ContentScale.Fit
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(220.dp)
+                        .clip(RoundedCornerShape(16.dp)),
+                contentScale = ContentScale.Fit,
             )
         }
 
@@ -93,7 +108,7 @@ fun CardContent(card: TeamCard, modifier: Modifier = Modifier) {
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(0.9f),
             thickness = 1.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
         )
 
         Spacer(Modifier.height(16.dp))
@@ -106,7 +121,7 @@ fun CardContent(card: TeamCard, modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.bodyMedium,
                 lineHeight = 20.sp,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
 

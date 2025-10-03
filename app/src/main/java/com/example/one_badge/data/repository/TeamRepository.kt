@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 class TeamRepository(
     private val api: SportsDbApi,
-    private val userPreferencesDao: UserPreferencesDao
+    private val userPreferencesDao: UserPreferencesDao,
 ) {
     suspend fun getTeamByName(teamName: String): TeamResponse {
         return api.searchTeams(teamName)
@@ -20,10 +20,11 @@ class TeamRepository(
             userPreferencesDao.updateSelectedTeam(teamName)
             userPreferencesDao.markFirstLaunchComplete()
         } else {
-            val newPrefs = UserPreferences(
-                selectedTeam = teamName,
-                isFirstLaunch = false
-            )
+            val newPrefs =
+                UserPreferences(
+                    selectedTeam = teamName,
+                    isFirstLaunch = false,
+                )
             userPreferencesDao.saveUserPreferences(newPrefs)
         }
     }
@@ -39,10 +40,11 @@ class TeamRepository(
     suspend fun clearSelectedTeam() {
         val currentPrefs = userPreferencesDao.getUserPreferencesOnce()
         if (currentPrefs != null) {
-            val updatedPrefs = currentPrefs.copy(
-                selectedTeam = null,
-                isFirstLaunch = true
-            )
+            val updatedPrefs =
+                currentPrefs.copy(
+                    selectedTeam = null,
+                    isFirstLaunch = true,
+                )
             userPreferencesDao.saveUserPreferences(updatedPrefs)
         }
     }

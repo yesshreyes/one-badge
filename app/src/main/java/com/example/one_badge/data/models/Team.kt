@@ -1,7 +1,7 @@
 package com.example.one_badge.data.models
 
 data class TeamResponse(
-    val teams: List<Team>? = null
+    val teams: List<Team>? = null,
 )
 
 data class Team(
@@ -48,28 +48,29 @@ data class TeamCardData(
     val bannerUrl: String = "",
     val color1: String = "",
     val color2: String = "",
-    val color3: String = ""
+    val color3: String = "",
 )
 
-fun Team.toTeamCardData(): TeamCardData = TeamCardData(
-    teamName = strTeam ?: "Unknown Team",
-    teamShort = strTeamShort ?: "",
-    league = strLeague ?: "",
-    country = strCountry ?: "",
-    formedYear = intFormedYear ?: "N/A",
-    stadium = strStadium ?: "N/A",
-    location = strLocation ?: "N/A",
-    stadiumCapacity = intStadiumCapacity ?: "N/A",
-    description = strDescriptionEN ?: "",
-    jersey = strEquipment ?: "",
-    facebook  = strFacebook ?: "",
-    twitter = strTwitter ?: "",
-    instagram = strInstagram ?: "",
-    youtube = strYoutube ?: "",
-    badgeUrl = strBadge ?: "",
-    logoUrl = strLogo ?: "",
-    bannerUrl = strBanner ?: "",
-    color1 = strColour1 ?: "",
-    color2 = strColour2 ?: "",
-    color3 = strColour3 ?: ""
-)
+fun Team.toTeamCardData(): TeamCardData =
+    TeamCardData(
+        teamName = strTeam ?: "Unknown Team",
+        teamShort = strTeamShort ?: "",
+        league = strLeague ?: "",
+        country = strCountry ?: "",
+        formedYear = intFormedYear ?: "N/A",
+        stadium = strStadium ?: "N/A",
+        location = strLocation ?: "N/A",
+        stadiumCapacity = intStadiumCapacity ?: "N/A",
+        description = strDescriptionEN ?: "",
+        jersey = strEquipment ?: "",
+        facebook = strFacebook ?: "",
+        twitter = strTwitter ?: "",
+        instagram = strInstagram ?: "",
+        youtube = strYoutube ?: "",
+        badgeUrl = strBadge ?: "",
+        logoUrl = strLogo ?: "",
+        bannerUrl = strBanner ?: "",
+        color1 = strColour1 ?: "",
+        color2 = strColour2 ?: "",
+        color3 = strColour3 ?: "",
+    )
