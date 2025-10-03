@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.one_badge.R
+import com.example.one_badge.ui.components.FanDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +36,7 @@ fun TeamSelectionScreen(
         viewModel.loadTeams()
     }
     if (showWelcomeDialog) {
-        HardcoreFanDialog(
+        FanDialog(
             onDismiss = { showWelcomeDialog = false }
         )
     }
@@ -57,12 +58,14 @@ fun TeamSelectionScreen(
                         Text(
                             text = "One",
                             style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.Bold
                         )
                         Text(
                             text = "Badge",
                             style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 },
@@ -201,101 +204,3 @@ private fun TeamCard(
     }
 }
 
-@Composable
-private fun HardcoreFanDialog(
-    onDismiss: () -> Unit
-) {
-    val hardcoreMessages = listOf(
-        "CHOOSE YOUR DESTINY",
-        "WHICH COLORS DO YOU BLEED?",
-        "TIME TO PLEDGE YOUR LOYALTY",
-        "PICK YOUR WARRIORS",
-        "WHO'S YOUR TRIBE?"
-    )
-
-    val randomMessage = remember { hardcoreMessages.random() }
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "WELCOME TO THE ARENA",
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = MaterialTheme.colorScheme.primary,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = randomMessage,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.SemiBold
-                    ),
-                    color = MaterialTheme.colorScheme.error, // Red for intensity
-                    textAlign = TextAlign.Center
-                )
-            }
-        },
-        text = {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    text = "THE PASSION STARTS HERE",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center
-                )
-
-                Text(
-                    text = "Select your team and show your true colors. No switching sides once you're in. This is where legends are born and rivalries are forged.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 20.sp
-                )
-
-                HorizontalDivider(
-                    modifier = Modifier.width(100.dp),
-                    thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-
-                Text(
-                    text = "ARE YOU READY?",
-                    style = MaterialTheme.typography.titleSmall.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
-                    color = MaterialTheme.colorScheme.primary,
-                    textAlign = TextAlign.Center
-                )
-            }
-        },
-        confirmButton = {
-            Button(
-                onClick = onDismiss,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                ),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = "LET'S GO",
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    )
-                )
-            }
-        },
-        containerColor = MaterialTheme.colorScheme.surface,
-        tonalElevation = 8.dp,
-        shape = RoundedCornerShape(16.dp)
-    )
-}

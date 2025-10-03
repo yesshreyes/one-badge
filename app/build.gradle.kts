@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.one_badge"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -67,4 +67,5 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

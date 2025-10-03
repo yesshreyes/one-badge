@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize database and repository
         val database = AppDatabase.getDatabase(this)
         val userPreferencesDao = database.userPreferencesDao()
 
@@ -44,7 +43,6 @@ class MainActivity : ComponentActivity() {
         val teamSelectionUiState by teamSelectionViewModel.uiState.collectAsState()
         var currentScreen by remember { mutableStateOf<String?>(null) }
 
-        // Check for saved team on app start
         LaunchedEffect(Unit) {
             lifecycleScope.launch {
                 val isFirstLaunch = repository.isFirstLaunch()
@@ -55,7 +53,6 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // Update screen based on team selection state
         LaunchedEffect(teamSelectionUiState.selectedTeam) {
             currentScreen = teamSelectionUiState.selectedTeam
         }
