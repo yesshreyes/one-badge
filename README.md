@@ -40,8 +40,6 @@ Get **continuous updates** on next matches, league standings, top scorers, and e
 - [ ] Card animations (scale, rotation, bounce)  
 - [ ] Live countdown timer for next match  
 - [ ] Shimmer loading effect  
-- [ ] Looping card stack  
-- [ ] Strings in `strings.xml`  
 - [ ] Settings screen:  
   - [ ] Change favourite team  
   - [ ] Toggle theme  
