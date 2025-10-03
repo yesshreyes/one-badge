@@ -1,3 +1,68 @@
 <resources>
+    <!-- App Information -->
     <string name="app_name">one-badge</string>
+    <string name="app_name_one">One</string>
+    <string name="app_name_badge">Badge</string>
+
+    <!-- Default Fallback Values -->
+    <string name="unknown_team">Unknown Team</string>
+    <string name="not_available">N/A</string>
+
+    <!-- Card Titles -->
+    <string name="team_info">Team Info</string>
+    <string name="description">Description</string>
+    <string name="jersey">Jersey</string>
+    <string name="social_media">Social Media</string>
+
+    <!-- Team Information Labels -->
+    <string name="short_name_label">Short Name: %1$s</string>
+    <string name="league_label">League: %1$s</string>
+    <string name="country_label">Country: %1$s</string>
+    <string name="formed_label">Formed: %1$s</string>
+    <string name="stadium_label">Stadium: %1$s</string>
+    <string name="location_label">Location: %1$s</string>
+    <string name="capacity_label">Capacity: %1$s</string>
+
+    <!-- Content Messages -->
+    <string name="no_description">No description available</string>
+    <string name="team_label">Team</string>
+    <string name="loading_teams">Loading teams...</string>
+    <string name="retry">Retry</string>
+
+    <!-- Error Messages -->
+    <string name="failed_load_team">Failed to load team data</string>
+
+    <!-- Social Media -->
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="instagram">Instagram</string>
+    <string name="youtube">YouTube</string>
+
+    <!-- Top App Bar -->
+    <string name="change_team">Change Team</string>
+
+    <!-- Fan Dialog -->
+    <string name="welcome_arena">WELCOME TO THE ARENA</string>
+    <string name="choose_destiny">CHOOSE YOUR DESTINY</string>
+    <string name="which_colors_bleed">WHICH COLORS DO YOU BLEED?</string>
+    <string name="time_pledge_loyalty">TIME TO PLEDGE YOUR LOYALTY</string>
+    <string name="pick_warriors">PICK YOUR WARRIORS</string>
+    <string name="whos_your_tribe">WHO\'S YOUR TRIBE?</string>
+    <string name="passion_starts">THE PASSION STARTS HERE</string>
+    <string name="select_team_desc">Select your team and show your true colors. No switching sides once you\'re in. This is where legends are born and rivalries are forged.</string>
+    <string name="are_you_ready">ARE YOU READY?</string>
+    <string name="lets_go">LET\'S GO</string>
+
+    <!-- Content Descriptions -->
+    <string name="one_badge_logo_desc">One Badge Logo</string>
+    <string name="menu_desc">Menu</string>
+    <string name="team_badge_desc">Team Badge</string>
+    <string name="team_badge_format_desc">%1$s Badge</string>
+    <string name="team_equipment_desc">Team Equipment</string>
+    <string name="team_banner_desc">Team Banner</string>
+    <string name="team_logo_desc">Team Logo</string>
+    <string name="facebook_logo_desc">Facebook Logo</string>
+    <string name="twitter_logo_desc">Twitter Logo</string>
+    <string name="instagram_logo_desc">Instagram Logo</string>
+    <string name="youtube_logo_desc">YouTube Logo</string>
 </resources>

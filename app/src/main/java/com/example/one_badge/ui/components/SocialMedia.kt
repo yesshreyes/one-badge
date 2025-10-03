@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.example.one_badge.R
@@ -32,35 +33,39 @@ fun SocialMediaLinks(details: String) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.fillMaxWidth(),
     ) {
-        if (details.contains("Facebook")) {
-            val facebookUrl = extractUrl(details, "Facebook")
+        if (details.contains(stringResource(R.string.facebook))) {
+            val facebookUrl = extractUrl(details, stringResource(R.string.facebook))
             ClickableSocialItem(
                 iconRes = R.drawable.facebook,
-                text = "Facebook",
+                text = stringResource(R.string.facebook),
+                contentDescription = stringResource(R.string.facebook_logo_desc),
                 onClick = { openUrl(context, "https://$facebookUrl") },
             )
         }
-        if (details.contains("Twitter")) {
-            val twitterUrl = extractUrl(details, "Twitter")
+        if (details.contains(stringResource(R.string.twitter))) {
+            val twitterUrl = extractUrl(details, stringResource(R.string.twitter))
             ClickableSocialItem(
                 iconRes = R.drawable.x,
-                text = "Twitter",
+                text = stringResource(R.string.twitter),
+                contentDescription = stringResource(R.string.twitter_logo_desc),
                 onClick = { openUrl(context, "https://$twitterUrl") },
             )
         }
-        if (details.contains("Instagram")) {
-            val instagramUrl = extractUrl(details, "Instagram")
+        if (details.contains(stringResource(R.string.instagram))) {
+            val instagramUrl = extractUrl(details, stringResource(R.string.instagram))
             ClickableSocialItem(
                 iconRes = R.drawable.instagram,
-                text = "Instagram",
+                text = stringResource(R.string.instagram),
+                contentDescription = stringResource(R.string.instagram_logo_desc),
                 onClick = { openUrl(context, "https://$instagramUrl") },
             )
         }
-        if (details.contains("YouTube")) {
-            val youtubeUrl = extractUrl(details, "YouTube")
+        if (details.contains(stringResource(R.string.youtube))) {
+            val youtubeUrl = extractUrl(details, stringResource(R.string.youtube))
             ClickableSocialItem(
                 iconRes = R.drawable.youtube,
-                text = "YouTube",
+                text = stringResource(R.string.youtube),
+                contentDescription = stringResource(R.string.youtube_logo_desc),
                 onClick = { openUrl(context, "https://$youtubeUrl") },
             )
         }
@@ -71,6 +76,7 @@ fun SocialMediaLinks(details: String) {
 private fun ClickableSocialItem(
     iconRes: Int,
     text: String,
+    contentDescription: String,
     onClick: () -> Unit,
 ) {
     Row(
@@ -83,7 +89,7 @@ private fun ClickableSocialItem(
     ) {
         Image(
             painter = painterResource(id = iconRes),
-            contentDescription = "$text Logo",
+            contentDescription = contentDescription,
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             modifier = Modifier.size(24.dp),
         )

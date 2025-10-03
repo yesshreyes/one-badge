@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.one_badge.R
@@ -47,18 +48,18 @@ fun AppTopBar(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_onebadge_logo),
-                    contentDescription = "One Badge Logo",
+                    contentDescription = stringResource(R.string.one_badge_logo_desc),
                     modifier = Modifier.size(40.dp),
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "One",
+                    text = stringResource(R.string.app_name_one),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    text = "Badge",
+                    text = stringResource(R.string.app_name_badge),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                     fontWeight = FontWeight.Bold,
@@ -78,7 +79,7 @@ fun AppTopBar(
                     IconButton(onClick = { showMenu = true }) {
                         Icon(
                             imageVector = Icons.Default.Menu,
-                            contentDescription = "Menu",
+                            contentDescription = stringResource(R.string.menu_desc),
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
                     }
@@ -88,7 +89,7 @@ fun AppTopBar(
                         onDismissRequest = { showMenu = false },
                     ) {
                         DropdownMenuItem(
-                            text = { Text("Change Team") },
+                            text = { Text(stringResource(R.string.change_team)) },
                             onClick = {
                                 showMenu = false
                                 callback()

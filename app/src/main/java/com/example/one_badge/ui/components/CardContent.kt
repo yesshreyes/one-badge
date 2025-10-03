@@ -23,11 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.one_badge.R
 import com.example.one_badge.data.models.TeamCard
 
 @Composable
@@ -83,7 +85,7 @@ fun CardContent(
             ) {
                 AsyncImage(
                     model = card.badgeUrl,
-                    contentDescription = "Team Badge",
+                    contentDescription = stringResource(R.string.team_badge_desc),
                     modifier = Modifier.size(85.dp),
                 )
             }
@@ -93,7 +95,7 @@ fun CardContent(
             Spacer(Modifier.height(20.dp))
             AsyncImage(
                 model = card.jerseyImageUrl,
-                contentDescription = "Team Equipment",
+                contentDescription = stringResource(R.string.team_equipment_desc),
                 modifier =
                     Modifier
                         .fillMaxWidth()

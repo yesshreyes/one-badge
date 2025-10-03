@@ -28,8 +28,10 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.one_badge.R
 import com.example.one_badge.data.models.TeamCard
 import com.example.one_badge.ui.components.AppTopBar
 import com.example.one_badge.ui.components.Carousel
@@ -152,7 +154,7 @@ private fun TeamBanner(bannerUrl: String) {
     if (bannerUrl.isNotBlank()) {
         AsyncImage(
             model = bannerUrl,
-            contentDescription = "Team Banner",
+            contentDescription = stringResource(R.string.team_banner_desc),
             modifier =
                 Modifier
                     .fillMaxWidth()
@@ -168,7 +170,7 @@ private fun TeamLogo(logoUrl: String) {
     if (logoUrl.isNotBlank()) {
         AsyncImage(
             model = logoUrl,
-            contentDescription = "Team Logo",
+            contentDescription = stringResource(R.string.team_logo_desc),
             modifier =
                 Modifier
                     .size(200.dp)
@@ -176,7 +178,7 @@ private fun TeamLogo(logoUrl: String) {
         )
     } else {
         Text(
-            text = "Team",
+            text = stringResource(R.string.team_label),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(bottom = 12.dp),
         )

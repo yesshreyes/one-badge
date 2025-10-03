@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,11 +31,11 @@ import com.example.one_badge.R
 fun FanDialog(onDismiss: () -> Unit) {
     val hardcoreMessages =
         listOf(
-            "CHOOSE YOUR DESTINY",
-            "WHICH COLORS DO YOU BLEED?",
-            "TIME TO PLEDGE YOUR LOYALTY",
-            "PICK YOUR WARRIORS",
-            "WHO'S YOUR TRIBE?",
+            stringResource(R.string.choose_destiny),
+            stringResource(R.string.which_colors_bleed),
+            stringResource(R.string.time_pledge_loyalty),
+            stringResource(R.string.pick_warriors),
+            stringResource(R.string.whos_your_tribe),
         )
 
     val randomMessage = remember { hardcoreMessages.random() }
@@ -51,18 +52,18 @@ fun FanDialog(onDismiss: () -> Unit) {
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_onebadge_logo),
-                        contentDescription = "One Badge Logo",
+                        contentDescription = stringResource(R.string.one_badge_logo_desc),
                         modifier = Modifier.size(48.dp),
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "One",
+                        text = stringResource(R.string.app_name_one),
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
-                        text = "Badge",
+                        text = stringResource(R.string.app_name_badge),
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
                         fontWeight = FontWeight.Bold,
@@ -72,7 +73,7 @@ fun FanDialog(onDismiss: () -> Unit) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "WELCOME TO THE ARENA",
+                    text = stringResource(R.string.welcome_arena),
                     style =
                         MaterialTheme.typography.headlineSmall.copy(
                             fontWeight = FontWeight.Bold,
@@ -98,7 +99,7 @@ fun FanDialog(onDismiss: () -> Unit) {
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text(
-                    text = "THE PASSION STARTS HERE",
+                    text = stringResource(R.string.passion_starts),
                     style =
                         MaterialTheme.typography.bodyLarge.copy(
                             fontWeight = FontWeight.Bold,
@@ -108,7 +109,7 @@ fun FanDialog(onDismiss: () -> Unit) {
                 )
 
                 Text(
-                    text = "Select your team and show your true colors. No switching sides once you're in. This is where legends are born and rivalries are forged.",
+                    text = stringResource(R.string.select_team_desc),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
@@ -122,7 +123,7 @@ fun FanDialog(onDismiss: () -> Unit) {
                 )
 
                 Text(
-                    text = "ARE YOU READY?",
+                    text = stringResource(R.string.are_you_ready),
                     style =
                         MaterialTheme.typography.titleSmall.copy(
                             fontWeight = FontWeight.Bold,
@@ -142,7 +143,7 @@ fun FanDialog(onDismiss: () -> Unit) {
                 shape = RoundedCornerShape(8.dp),
             ) {
                 Text(
-                    text = "LET'S GO",
+                    text = stringResource(R.string.lets_go),
                     style =
                         MaterialTheme.typography.labelLarge.copy(
                             fontWeight = FontWeight.Bold,
