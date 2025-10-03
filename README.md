@@ -30,6 +30,7 @@ Get **continuous updates** on next matches, league standings, top scorers, and e
 ---
 
 ### **v0.2.0 – Upcoming Features**
+- [ ] Clean Architecture
 - [ ] Cache last API data (Room or DataStore)  
 - [ ] Show cached data if offline  
 - [ ] Error states (Retry, “No data”)  
