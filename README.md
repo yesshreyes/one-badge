@@ -42,13 +42,9 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.4.0 – UI Polish & Dynamic Themes**
 **Goal:** Smooth, sexy UI that feels premium.  
 **Tasks:**
-- [ ] Replace default splash with animated Compose splash screen
-- [ ] Gradient backgrounds in team colors
-- [ ] Card animations (scale, rotation, bounce)
-- [ ] Live countdown timer for next match
-- [ ] Shimmer loading effect
-- [ ] Looping card stack
-- [ ] Light/dark mode support (static)
+- [x] Replace default splash with animated Compose splash screen
+- [x] Gradient backgrounds in team colors
+- [x] Light/dark mode support (static)
 
 ---
 
@@ -66,10 +62,12 @@ For fans who live and breathe their team. OneBadge keeps you connected with live
 ### **v0.6.0 – Extra UX Goodies**
 **Goal:** Delight the user with extra touches.  
 **Tasks:**
-- [ ] Lottie animations on match win/loss
 - [ ] Share card as image/text
-- [ ] Swipe haptic feedback
 - [ ] Animated transitions between cards
+- [ ] Card animations (scale, rotation, bounce)
+- [ ] Live countdown timer for next match
+- [ ] Shimmer loading effect
+- [ ] Looping card stack
 
 ---
 

@@ -1,6 +1,7 @@
 package com.example.one_badge.ui.screens.home
 
 import android.util.Log
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.one_badge.data.models.*
@@ -17,6 +18,38 @@ data class HomeUiState(
     val logoUrl: String get() = teamData?.logoUrl ?: ""
     val bannerUrl: String get() = teamData?.bannerUrl ?: ""
 
+    val primaryColor: Color
+        get() = teamData?.let {
+            try {
+                Color(android.graphics.Color.parseColor(it.color1))
+            } catch (e: Exception) {
+                Color.White
+            }
+        } ?: Color.White
+
+    val secondaryColor: Color
+        get() = teamData?.let {
+            try {
+                Color(android.graphics.Color.parseColor(it.color2))
+            } catch (e: Exception) {
+                Color.White
+            }
+        } ?: Color.White
+
+    val accentColor: Color
+        get() = teamData?.let {
+            if (it.color3.isNotBlank()) {
+                try {
+                    Color(android.graphics.Color.parseColor(it.color3))
+                } catch (e: Exception) {
+                    Color.White
+                }
+            } else {
+                Color.White
+            }
+        } ?: Color.White
+
+
     val cards: List<TeamCard> get() = teamData?.let { data ->
         buildList {
             add(CardData.TeamInfo(data).toTeamCard())
@@ -32,8 +65,6 @@ data class HomeUiState(
             add(CardData.SocialMedia(data).toTeamCard())
         }
     } ?: emptyList()
-
-
 }
 
 class HomeViewModel(private val repository: TeamRepository) : ViewModel() {
@@ -53,7 +84,6 @@ class HomeViewModel(private val repository: TeamRepository) : ViewModel() {
                     )
                 }
             } catch (e: Exception) {
-                Log.e("HomeViewModel", "Error fetching team data", e)
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     error = "Failed to load team data"

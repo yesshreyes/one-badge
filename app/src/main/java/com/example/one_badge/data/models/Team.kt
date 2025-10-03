@@ -22,7 +22,10 @@ data class Team(
     val strFacebook: String? = null,
     val strTwitter: String? = null,
     val strInstagram: String? = null,
-    val strYoutube: String? = null
+    val strYoutube: String? = null,
+    val strColour1: String? = null,
+    val strColour2: String? = null,
+    val strColour3: String? = null,
 )
 
 data class TeamCardData(
@@ -42,7 +45,10 @@ data class TeamCardData(
     val youtube: String = "",
     val badgeUrl: String = "",
     val logoUrl: String = "",
-    val bannerUrl: String = ""
+    val bannerUrl: String = "",
+    val color1: String = "",
+    val color2: String = "",
+    val color3: String = ""
 )
 
 fun Team.toTeamCardData(): TeamCardData = TeamCardData(
@@ -62,5 +68,8 @@ fun Team.toTeamCardData(): TeamCardData = TeamCardData(
     youtube = strYoutube ?: "",
     badgeUrl = strBadge ?: "",
     logoUrl = strLogo ?: "",
-    bannerUrl = strBanner ?: ""
+    bannerUrl = strBanner ?: "",
+    color1 = strColour1 ?: "",
+    color2 = strColour2 ?: "",
+    color3 = strColour3 ?: ""
 )
