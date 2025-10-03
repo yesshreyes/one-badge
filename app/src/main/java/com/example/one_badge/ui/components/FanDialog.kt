@@ -27,17 +27,15 @@ import androidx.compose.ui.unit.sp
 import com.example.one_badge.R
 
 @Composable
-fun FanDialog(
-    onDismiss: () -> Unit
-) {
-
-    val hardcoreMessages = listOf(
-        "CHOOSE YOUR DESTINY",
-        "WHICH COLORS DO YOU BLEED?",
-        "TIME TO PLEDGE YOUR LOYALTY",
-        "PICK YOUR WARRIORS",
-        "WHO'S YOUR TRIBE?"
-    )
+fun FanDialog(onDismiss: () -> Unit) {
+    val hardcoreMessages =
+        listOf(
+            "CHOOSE YOUR DESTINY",
+            "WHICH COLORS DO YOU BLEED?",
+            "TIME TO PLEDGE YOUR LOYALTY",
+            "PICK YOUR WARRIORS",
+            "WHO'S YOUR TRIBE?",
+        )
 
     val randomMessage = remember { hardcoreMessages.random() }
 
@@ -45,11 +43,11 @@ fun FanDialog(
         onDismissRequest = onDismiss,
         title = {
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Center,
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_onebadge_logo),
@@ -61,13 +59,13 @@ fun FanDialog(
                         text = "One",
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
                     Text(
                         text = "Badge",
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
                 }
 
@@ -75,35 +73,38 @@ fun FanDialog(
 
                 Text(
                     text = "WELCOME TO THE ARENA",
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
+                    style =
+                        MaterialTheme.typography.headlineSmall.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
                     color = MaterialTheme.colorScheme.primary,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = randomMessage,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.SemiBold
-                    ),
+                    style =
+                        MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.SemiBold,
+                        ),
                     color = MaterialTheme.colorScheme.error,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         },
         text = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Text(
                     text = "THE PASSION STARTS HERE",
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
+                    style =
+                        MaterialTheme.typography.bodyLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
                     color = MaterialTheme.colorScheme.onSurface,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
 
                 Text(
@@ -111,43 +112,46 @@ fun FanDialog(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
-                    lineHeight = 20.sp
+                    lineHeight = 20.sp,
                 )
 
                 HorizontalDivider(
                     modifier = Modifier.width(100.dp),
                     thickness = 2.dp,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
                 )
 
                 Text(
                     text = "ARE YOU READY?",
-                    style = MaterialTheme.typography.titleSmall.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
+                    style =
+                        MaterialTheme.typography.titleSmall.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
                     color = MaterialTheme.colorScheme.primary,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         },
         confirmButton = {
             Button(
                 onClick = onDismiss,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                ),
-                shape = RoundedCornerShape(8.dp)
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                    ),
+                shape = RoundedCornerShape(8.dp),
             ) {
                 Text(
                     text = "LET'S GO",
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontWeight = FontWeight.Bold
-                    )
+                    style =
+                        MaterialTheme.typography.labelLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                        ),
                 )
             }
         },
         containerColor = MaterialTheme.colorScheme.surface,
         tonalElevation = 8.dp,
-        shape = RoundedCornerShape(16.dp)
+        shape = RoundedCornerShape(16.dp),
     )
 }

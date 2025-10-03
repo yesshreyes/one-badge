@@ -8,5 +8,5 @@ data class UserPreferences(
     @PrimaryKey val id: Int = 1,
     val selectedTeam: String? = null,
     val isFirstLaunch: Boolean = true,
-    val lastSelectedAt: Long = System.currentTimeMillis()
+    val lastSelectedAt: Long = System.currentTimeMillis(),
 )

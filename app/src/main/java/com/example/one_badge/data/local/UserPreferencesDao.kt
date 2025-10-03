@@ -1,6 +1,9 @@
 package com.example.one_badge.data.local
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,7 +18,10 @@ interface UserPreferencesDao {
     suspend fun saveUserPreferences(preferences: UserPreferences)
 
     @Query("UPDATE user_preferences SET selectedTeam = :teamName, lastSelectedAt = :timestamp WHERE id = 1")
-    suspend fun updateSelectedTeam(teamName: String, timestamp: Long = System.currentTimeMillis())
+    suspend fun updateSelectedTeam(
+        teamName: String,
+        timestamp: Long = System.currentTimeMillis(),
+    )
 
     @Query("UPDATE user_preferences SET isFirstLaunch = 0 WHERE id = 1")
     suspend fun markFirstLaunchComplete()

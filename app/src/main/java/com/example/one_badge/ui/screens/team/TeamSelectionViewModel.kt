@@ -7,42 +7,42 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-data   class TeamSelectionItem(
+data class TeamSelectionItem(
     val name: String,
-    val badgeUrl: String
+    val badgeUrl: String,
 )
 
 data class TeamSelectionUiState(
     val teams: List<TeamSelectionItem> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
-    val selectedTeam: String? = null
+    val selectedTeam: String? = null,
 )
 
 class TeamSelectionViewModel(
-    private val repository: TeamRepository
+    private val repository: TeamRepository,
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow(TeamSelectionUiState())
     val uiState: StateFlow<TeamSelectionUiState> = _uiState
 
-    private val teamNames = listOf(
-        "Arsenal",
-        "Chelsea",
-        "Liverpool",
-        "Manchester City",
-        "Manchester United",
-        "Tottenham Hotspur",
-        "Real Madrid",
-        "Barcelona",
-        "Bayern Munich",
-        "PSG",
-        "Juventus",
-        "AC Milan",
-        "Inter Milan",
-        "Atletico Madrid",
-        "Borussia Dortmund"
-    )
+    private val teamNames =
+        listOf(
+            "Arsenal",
+            "Chelsea",
+            "Liverpool",
+            "Manchester City",
+            "Manchester United",
+            "Tottenham Hotspur",
+            "Real Madrid",
+            "Barcelona",
+            "Bayern Munich",
+            "PSG",
+            "Juventus",
+            "AC Milan",
+            "Inter Milan",
+            "Atletico Madrid",
+            "Borussia Dortmund",
+        )
 
     init {
         viewModelScope.launch {
@@ -68,30 +68,30 @@ class TeamSelectionViewModel(
                         teamsWithBadges.add(
                             TeamSelectionItem(
                                 name = teamName,
-                                badgeUrl = team?.strBadge ?: ""
-                            )
+                                badgeUrl = team?.strBadge ?: "",
+                            ),
                         )
-
                     } catch (e: Exception) {
                         teamsWithBadges.add(
                             TeamSelectionItem(
                                 name = teamName,
-                                badgeUrl = ""
-                            )
+                                badgeUrl = "",
+                            ),
                         )
                     }
                 }
 
-                _uiState.value = _uiState.value.copy(
-                    teams = teamsWithBadges.sortedBy { it.name },
-                    isLoading = false
-                )
-
+                _uiState.value =
+                    _uiState.value.copy(
+                        teams = teamsWithBadges.sortedBy { it.name },
+                        isLoading = false,
+                    )
             } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    error = "Failed to load teams"
-                )
+                _uiState.value =
+                    _uiState.value.copy(
+                        isLoading = false,
+                        error = "Failed to load teams",
+                    )
             }
         }
     }

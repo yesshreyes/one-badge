@@ -8,23 +8,24 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [UserPreferences::class],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userPreferencesDao(): UserPreferencesDao
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var instance: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "onebadge_database"
-                ).build()
-                INSTANCE = instance
+            return instance ?: synchronized(this) {
+                val instance =
+                    Room.databaseBuilder(
+                        context.applicationContext,
+                        AppDatabase::class.java,
+                        "onebadge_database",
+                    ).build()
+                Companion.instance = instance
                 instance
             }
         }

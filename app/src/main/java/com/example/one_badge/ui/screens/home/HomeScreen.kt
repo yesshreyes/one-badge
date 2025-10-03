@@ -1,28 +1,46 @@
 package com.example.one_badge.ui.screens.home
 
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.one_badge.data.models.TeamCard
+import com.example.one_badge.ui.components.AppTopBar
 import com.example.one_badge.ui.components.Carousel
 import com.example.one_badge.ui.components.SwipeCard
-import com.example.one_badge.ui.components.AppTopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
     selectedTeam: String,
-    onBackToTeamSelection: (() -> Unit)? = null
+    onBackToTeamSelection: (() -> Unit)? = null,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var selectedCard by remember { mutableStateOf<TeamCard?>(null) }
@@ -35,23 +53,26 @@ fun HomeScreen(
         topBar = {
             AppTopBar(
                 onBackClick = onBackToTeamSelection,
-                teamName = selectedTeam
+                teamName = selectedTeam,
             )
         },
         content = { paddingValues ->
             Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(
-                                uiState.primaryColor,
-                                uiState.secondaryColor
-                            )
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .background(
+                            brush =
+                                Brush.verticalGradient(
+                                    colors =
+                                        listOf(
+                                            uiState.primaryColor,
+                                            uiState.secondaryColor,
+                                        ),
+                                ),
                         )
-                    )
-                    .padding(paddingValues),
-                horizontalAlignment = Alignment.CenterHorizontally
+                        .padding(paddingValues),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 TeamBanner(bannerUrl = uiState.bannerUrl)
                 Spacer(modifier = Modifier.height(16.dp))
@@ -61,7 +82,7 @@ fun HomeScreen(
                         Box(modifier = Modifier.weight(1f)) {
                             CircularProgressIndicator(
                                 modifier = Modifier.align(Alignment.Center),
-                                color = Color.White
+                                color = Color.White,
                             )
                         }
                     }
@@ -83,7 +104,7 @@ fun HomeScreen(
                     }
                 }
             }
-        }
+        },
     )
 }
 
@@ -91,12 +112,13 @@ fun HomeScreen(
 private fun CarouselSection(
     cards: List<TeamCard>,
     onCardClick: (TeamCard) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(420.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(420.dp),
     ) {
         Carousel(
             cards = cards,
@@ -111,10 +133,11 @@ private fun SwipeCardSection(
     onSwiped: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.8f)
-            .padding(24.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.8f)
+                .padding(24.dp),
     ) {
         SwipeCard(
             card = card,
@@ -130,11 +153,12 @@ private fun TeamBanner(bannerUrl: String) {
         AsyncImage(
             model = bannerUrl,
             contentDescription = "Team Banner",
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
-                .alpha(0.8f),
-            contentScale = ContentScale.FillBounds
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(120.dp)
+                    .alpha(0.8f),
+            contentScale = ContentScale.FillBounds,
         )
     }
 }
@@ -145,15 +169,16 @@ private fun TeamLogo(logoUrl: String) {
         AsyncImage(
             model = logoUrl,
             contentDescription = "Team Logo",
-            modifier = Modifier
-                .size(200.dp)
-                .padding(bottom = 12.dp)
+            modifier =
+                Modifier
+                    .size(200.dp)
+                    .padding(bottom = 12.dp),
         )
     } else {
         Text(
             text = "Team",
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(bottom = 12.dp)
+            modifier = Modifier.padding(bottom = 12.dp),
         )
     }
 }
@@ -163,6 +188,6 @@ private fun ErrorMessage(error: String) {
     Text(
         text = error,
         color = MaterialTheme.colorScheme.error,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
     )
 }
