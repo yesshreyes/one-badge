@@ -6,7 +6,7 @@ Get **continuous updates** on next matches, league standings, top scorers, and e
 
 ---
 
-## 📌🎢 Roadmap
+## 🎢 Roadmap
 
 ### **v0.1.0**
 - [x] Create HomeScreen  
