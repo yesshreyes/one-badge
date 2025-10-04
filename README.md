@@ -67,7 +67,7 @@ Here are some early previews from the app:
 
 | Card Swipe | Carousel | Team List |
 | :---------: | :-------: | :-------: |
-| <img src="assets/card_swipe.gif" alt="Card Swipe" width="200"/> | <img src="assets/carousel.gif" alt="Carousel" width="200"/> | <img src="assets/teamlist.gif" alt="Team List" width="200"/> |
+| <img src="assets/cardswipe.gif" alt="Card Swipe" width="200"/> | <img src="assets/carousel.gif" alt="Carousel" width="200"/> | <img src="assets/teamlist.gif" alt="Team List" width="200"/> |
 
 | Home Screen | Splash Screen |
 | :----------: | :------------: |
