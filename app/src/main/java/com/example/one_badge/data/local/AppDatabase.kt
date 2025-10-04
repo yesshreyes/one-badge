@@ -4,14 +4,20 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.one_badge.data.local.cachedTeam.CachedTeam
+import com.example.one_badge.data.local.cachedTeam.CachedTeamDao
+import com.example.one_badge.data.local.userPreferences.UserPreferences
+import com.example.one_badge.data.local.userPreferences.UserPreferencesDao
 
 @Database(
-    entities = [UserPreferences::class],
-    version = 1,
+    entities = [UserPreferences::class, CachedTeam::class],
+    version = 2,
     exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userPreferencesDao(): UserPreferencesDao
+
+    abstract fun cachedTeamDao(): CachedTeamDao
 
     companion object {
         @Volatile
@@ -24,7 +30,9 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "onebadge_database",
-                    ).build()
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
                 Companion.instance = instance
                 instance
             }
