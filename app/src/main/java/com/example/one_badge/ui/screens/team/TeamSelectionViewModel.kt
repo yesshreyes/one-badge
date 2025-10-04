@@ -17,6 +17,7 @@ data class TeamSelectionUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val selectedTeam: String? = null,
+    val isFromCache: Boolean = false,
 )
 
 class TeamSelectionViewModel(
@@ -53,47 +54,85 @@ class TeamSelectionViewModel(
         }
     }
 
-    fun loadTeams() {
+    fun loadTeams(forceRefresh: Boolean = false) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
 
             try {
-                val teamsWithBadges = mutableListOf<TeamSelectionItem>()
-
-                teamNames.forEach { teamName ->
-                    try {
-                        val response = repository.getTeamByName(teamName)
-                        val team = response.teams?.firstOrNull()
-
-                        teamsWithBadges.add(
-                            TeamSelectionItem(
-                                name = teamName,
-                                badgeUrl = team?.strBadge ?: "",
-                            ),
-                        )
-                    } catch (e: Exception) {
-                        teamsWithBadges.add(
-                            TeamSelectionItem(
-                                name = teamName,
-                                badgeUrl = "",
-                            ),
-                        )
-                    }
+                if (!forceRefresh && repository.isCacheValid()) {
+                    loadFromCache()
+                } else {
+                    loadFromNetwork()
                 }
-
-                _uiState.value =
-                    _uiState.value.copy(
-                        teams = teamsWithBadges.sortedBy { it.name },
-                        isLoading = false,
-                    )
             } catch (e: Exception) {
-                _uiState.value =
-                    _uiState.value.copy(
-                        isLoading = false,
-                        error = "Failed to load teams",
-                    )
+                val cachedTeams = repository.getCachedTeams()
+                if (cachedTeams.isNotEmpty()) {
+                    loadFromCache()
+                } else {
+                    _uiState.value =
+                        _uiState.value.copy(
+                            isLoading = false,
+                            error = "Failed to load teams",
+                        )
+                }
             }
         }
+    }
+
+    private suspend fun loadFromCache() {
+        val cachedTeams = repository.getCachedTeams()
+        val teams =
+            cachedTeams.map { cached ->
+                TeamSelectionItem(
+                    name = cached.teamName,
+                    badgeUrl = cached.badgeUrl,
+                )
+            }
+        _uiState.value =
+            _uiState.value.copy(
+                teams = teams,
+                isLoading = false,
+                isFromCache = true,
+            )
+    }
+
+    private suspend fun loadFromNetwork() {
+        val teamsWithBadges = mutableListOf<TeamSelectionItem>()
+        val teamsToCache = mutableListOf<Pair<String, String>>()
+
+        teamNames.forEach { teamName ->
+            try {
+                val response = repository.getTeamByName(teamName)
+                val team = response.teams?.firstOrNull()
+                val badgeUrl = team?.strBadge ?: ""
+
+                teamsWithBadges.add(
+                    TeamSelectionItem(
+                        name = teamName,
+                        badgeUrl = badgeUrl,
+                    ),
+                )
+
+                teamsToCache.add(teamName to badgeUrl)
+            } catch (e: Exception) {
+                teamsWithBadges.add(
+                    TeamSelectionItem(
+                        name = teamName,
+                        badgeUrl = "",
+                    ),
+                )
+                teamsToCache.add(teamName to "")
+            }
+        }
+
+        repository.cacheTeams(teamsToCache)
+
+        _uiState.value =
+            _uiState.value.copy(
+                teams = teamsWithBadges.sortedBy { it.name },
+                isLoading = false,
+                isFromCache = false,
+            )
     }
 
     fun selectTeam(teamName: String) {
@@ -115,5 +154,9 @@ class TeamSelectionViewModel(
             } catch (e: Exception) {
             }
         }
+    }
+
+    fun refreshTeams() {
+        loadTeams(forceRefresh = true)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.one_badge.data.local
+package com.example.one_badge.data.local.userPreferences
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -14,7 +14,7 @@ interface UserPreferencesDao {
     @Query("SELECT * FROM user_preferences WHERE id = 1 LIMIT 1")
     suspend fun getUserPreferencesOnce(): UserPreferences?
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun saveUserPreferences(preferences: UserPreferences)
 
     @Query("UPDATE user_preferences SET selectedTeam = :teamName, lastSelectedAt = :timestamp WHERE id = 1")

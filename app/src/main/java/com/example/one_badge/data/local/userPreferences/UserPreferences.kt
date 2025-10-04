@@ -1,4 +1,4 @@
-package com.example.one_badge.data.local
+package com.example.one_badge.data.local.userPreferences
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

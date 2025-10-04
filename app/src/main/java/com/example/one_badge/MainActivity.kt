@@ -31,8 +31,9 @@ class MainActivity : ComponentActivity() {
 
         val database = AppDatabase.getDatabase(this)
         val userPreferencesDao = database.userPreferencesDao()
+        val cachedTeamDao = database.cachedTeamDao()
 
-        repository = TeamRepository(RetrofitInstance.api, userPreferencesDao)
+        repository = TeamRepository(RetrofitInstance.api, userPreferencesDao, cachedTeamDao)
         homeViewModel = HomeViewModel(repository)
         teamSelectionViewModel = TeamSelectionViewModel(repository)
 

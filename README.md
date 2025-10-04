@@ -30,18 +30,13 @@ Get **continuous updates** on next matches, league standings, top scorers, and e
 ---
 
 ### **v0.2.0 – Upcoming Features**
-- [ ] Cache last API data (Room or DataStore)  
-- [ ] Show cached data if offline  
+- [x] Cache last API data (Room or DataStore)  
 - [ ] Error states (Retry, “No data”)  
-- [ ] API rate limit handling  
 - [ ] Pull-to-refresh on Home  
 - [ ] Share card as image/text  
 - [ ] Animated transitions between cards  
 - [ ] Card animations (scale, rotation, bounce)  
 - [ ] Live countdown timer for next match  
-- [ ] Shimmer loading effect  
-- [ ] Looping card stack  
-- [ ] Strings in `strings.xml`  
 - [ ] Settings screen:  
   - [ ] Change favourite team  
   - [ ] Toggle theme  
