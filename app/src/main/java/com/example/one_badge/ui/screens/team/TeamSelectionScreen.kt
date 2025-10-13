@@ -20,13 +20,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -58,6 +58,7 @@ fun TeamSelectionScreen(
     LaunchedEffect(Unit) {
         viewModel.loadTeams()
     }
+
     if (showWelcomeDialog) {
         FanDialog(
             onDismiss = { showWelcomeDialog = false },
@@ -100,27 +101,6 @@ fun TeamSelectionScreen(
         },
     ) { paddingValues ->
         when {
-            uiState.isLoading -> {
-                Box(
-                    modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                    ) {
-                        CircularProgressIndicator()
-                        Text(
-                            text = stringResource(R.string.loading_teams),
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    }
-                }
-            }
-
             uiState.error != null -> {
                 Box(
                     modifier =
@@ -146,20 +126,28 @@ fun TeamSelectionScreen(
             }
 
             else -> {
-                LazyColumn(
+                PullToRefreshBox(
+                    isRefreshing = uiState.isLoading,
+                    onRefresh = { viewModel.refreshTeams() },
                     modifier =
                         Modifier
                             .fillMaxSize()
-                            .padding(paddingValues)
-                            .background(MaterialTheme.colorScheme.background),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                            .padding(paddingValues),
                 ) {
-                    items(uiState.teams) { team ->
-                        TeamCard(
-                            team = team,
-                            onClick = { onTeamSelected(team.name) },
-                        )
+                    LazyColumn(
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.background),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                    ) {
+                        items(uiState.teams) { team ->
+                            TeamCard(
+                                team = team,
+                                onClick = { onTeamSelected(team.name) },
+                            )
+                        }
                     }
                 }
             }

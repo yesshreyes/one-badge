@@ -32,7 +32,7 @@ Get **continuous updates** on next matches, league standings, top scorers, and e
 ### **v0.2.0 – Upcoming Features**
 - [x] Cache last API data (Room or DataStore)  
 - [ ] Error states (Retry, “No data”)  
-- [ ] Pull-to-refresh on Home  
+- [x] Pull-to-refresh on Home  
 - [ ] Share card as image/text  
 - [ ] Animated transitions between cards  
 - [ ] Card animations (scale, rotation, bounce)  
