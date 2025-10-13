@@ -77,7 +77,13 @@ class HomeViewModel(private val repository: TeamRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState
 
-    fun fetchTeamData(teamName: String) {
+    private var currentTeamName: String = ""
+
+    fun fetchTeamData(
+        teamName: String,
+        forceRefresh: Boolean = false,
+    ) {
+        currentTeamName = teamName
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true, error = null)
             try {
@@ -97,5 +103,9 @@ class HomeViewModel(private val repository: TeamRepository) : ViewModel() {
                     )
             }
         }
+    }
+
+    fun refreshContent() {
+        fetchTeamData(currentTeamName, forceRefresh = true)
     }
 }

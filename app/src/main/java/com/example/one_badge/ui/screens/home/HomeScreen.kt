@@ -10,11 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -59,50 +60,51 @@ fun HomeScreen(
             )
         },
         content = { paddingValues ->
-            Column(
+            PullToRefreshBox(
+                isRefreshing = uiState.isLoading,
+                onRefresh = { viewModel.refreshContent() },
                 modifier =
                     Modifier
                         .fillMaxSize()
-                        .background(
-                            brush =
-                                Brush.verticalGradient(
-                                    colors =
-                                        listOf(
-                                            uiState.primaryColor,
-                                            uiState.secondaryColor,
-                                        ),
-                                ),
-                        )
                         .padding(paddingValues),
-                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                TeamBanner(bannerUrl = uiState.bannerUrl)
-                Spacer(modifier = Modifier.height(16.dp))
+                Column(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .background(
+                                brush =
+                                    Brush.verticalGradient(
+                                        colors =
+                                            listOf(
+                                                uiState.primaryColor,
+                                                uiState.secondaryColor,
+                                            ),
+                                    ),
+                            )
+                            .verticalScroll(rememberScrollState()),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    TeamBanner(bannerUrl = uiState.bannerUrl)
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                when {
-                    uiState.isLoading -> {
-                        Box(modifier = Modifier.weight(1f)) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.align(Alignment.Center),
-                                color = Color.White,
+                    when {
+                        uiState.error != null -> {
+                            ErrorMessage(error = uiState.error!!)
+                        }
+                        selectedCard != null -> {
+                            SwipeCardSection(
+                                card = selectedCard!!,
+                                onSwiped = { selectedCard = null },
                             )
                         }
-                    }
-                    uiState.error != null -> {
-                        ErrorMessage(error = uiState.error!!)
-                    }
-                    selectedCard != null -> {
-                        SwipeCardSection(
-                            card = selectedCard!!,
-                            onSwiped = { selectedCard = null },
-                        )
-                    }
-                    else -> {
-                        CarouselSection(
-                            cards = uiState.cards,
-                            onCardClick = { selectedCard = it },
-                        )
-                        TeamLogo(logoUrl = uiState.logoUrl)
+                        else -> {
+                            CarouselSection(
+                                cards = uiState.cards,
+                                onCardClick = { selectedCard = it },
+                            )
+                            TeamLogo(logoUrl = uiState.logoUrl)
+                        }
                     }
                 }
             }

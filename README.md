@@ -42,7 +42,7 @@ Access the latest APK for **One Badge** from the link below:
 ### **v0.2.0 – Upcoming Features**
 - [x] Cache last API data  
 - [ ] Error states (Retry, “No data”)  
-- [ ] Pull-to-refresh on Home  
+- [x] Pull-to-refresh on Home  
 - [ ] Share card as image/text  
 - [ ] Animated transitions between cards  
 - [ ] Card animations (scale, rotation, bounce)  
