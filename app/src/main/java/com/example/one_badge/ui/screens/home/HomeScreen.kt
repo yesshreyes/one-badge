@@ -18,7 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,14 +42,10 @@ import com.example.one_badge.ui.components.SwipeCard
 fun HomeScreen(
     viewModel: HomeViewModel,
     selectedTeam: String,
-    onBackToTeamSelection: (() -> Unit)? = null,
+    onBackToTeamSelection: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var selectedCard by remember { mutableStateOf<TeamCard?>(null) }
-
-    LaunchedEffect(selectedTeam) {
-        viewModel.fetchTeamData(selectedTeam)
-    }
 
     Scaffold(
         topBar = {
