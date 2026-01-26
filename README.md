@@ -46,15 +46,7 @@ Access the latest APK for **One Badge** from the link below:
 - [ ] Share card as image/text  
 - [ ] Animated transitions between cards  
 - [ ] Card animations (scale, rotation, bounce)  
-- [ ] Live countdown timer for next match  
-- [ ] Settings screen:  
-  - [ ] Change favourite team  
-  - [ ] Toggle theme  
-  - [ ] About app  
-- [ ] Test on multiple screen sizes  
-- [ ] App icon & branding  
-- [ ] Final performance tweaks  
-- [ ] Submit to Indus Appstore  
+- [ ] Live countdown timer for next match 
 - [ ] **Live Events Feed** → match events like goals, red cards, substitutions  
 - [ ] **Continuous Data Refresh** → auto-refresh during matches without manual pull  
 - [ ] **Next Matches, League Standings, and Top Scorers** → updated continuously for chosen team  

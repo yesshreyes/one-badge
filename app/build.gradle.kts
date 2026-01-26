@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     kotlin("kapt")
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -20,8 +23,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField(
+            "String",
+            "SPORTS_DB_API_KEY",
+            "\"${project.findProperty("SPORTS_DB_API_KEY")}\"",
+        )
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -40,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -51,6 +59,9 @@ ktlint {
         reporter(ReporterType.CHECKSTYLE)
         reporter(ReporterType.SARIF)
     }
+}
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -81,5 +92,10 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
     testImplementation(kotlin("test"))
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 }
