@@ -76,8 +76,7 @@ fun HomeScreen(
                                                 uiState.secondaryColor,
                                             ),
                                     ),
-                            )
-                            .verticalScroll(rememberScrollState()),
+                            ),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     TeamBanner(bannerUrl = uiState.bannerUrl)
