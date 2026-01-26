@@ -69,3 +69,13 @@ Here are some early previews from the app:
 
 ---
 
+## 🙏 Acknowledgements
+
+- Football data provided by **TheSportsDB API**  
+  https://www.thesportsdb.com  
+- This project uses the **free public API** offered by TheSportsDB for educational and non-commercial purposes  
+- All team names, logos, and data belong to their respective owners  
+
+---
+
+
