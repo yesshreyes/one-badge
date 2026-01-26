@@ -1,4 +1,4 @@
-package com.example.one_badge.presentation.components.cards
+package com.example.one_badge.presentation.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

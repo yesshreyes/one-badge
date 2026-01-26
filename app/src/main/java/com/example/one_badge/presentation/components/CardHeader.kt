@@ -1,4 +1,4 @@
-package com.example.one_badge.presentation.components.cards
+package com.example.one_badge.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

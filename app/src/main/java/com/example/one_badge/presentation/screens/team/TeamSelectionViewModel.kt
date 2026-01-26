@@ -14,14 +14,6 @@ data class TeamSelectionItem(
     val badgeUrl: String,
 )
 
-data class TeamSelectionUiState(
-    val teams: List<TeamSelectionItem> = emptyList(),
-    val isLoading: Boolean = false,
-    val error: String? = null,
-    val selectedTeam: String? = null,
-    val isFromCache: Boolean = false,
-)
-
 @HiltViewModel
 class TeamSelectionViewModel
     @Inject
@@ -167,5 +159,9 @@ class TeamSelectionViewModel
 
         fun clearSelectedTeamState() {
             _uiState.value = _uiState.value.copy(selectedTeam = null)
+        }
+
+        fun onSearchQueryChange(query: String) {
+            _uiState.value = _uiState.value.copy(searchQuery = query)
         }
     }

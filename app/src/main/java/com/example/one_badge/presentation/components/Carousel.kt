@@ -24,7 +24,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.example.one_badge.presentation.components.cards.CardContent
 import com.example.one_badge.presentation.models.CardItem
 import kotlin.math.absoluteValue
 
