@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.components
+package com.example.one_badge.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,7 +24,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
-import com.example.one_badge.data.models.TeamCard
+import com.example.one_badge.presentation.components.cards.CardContent
+import com.example.one_badge.presentation.models.CardItem
 import kotlin.math.absoluteValue
 
 fun lerp(
@@ -37,8 +38,8 @@ fun lerp(
 
 @Composable
 fun Carousel(
-    cards: List<TeamCard>,
-    onCardClick: (TeamCard) -> Unit,
+    cards: List<CardItem>,
+    onCardClick: (CardItem) -> Unit,
 ) {
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { cards.size })
 

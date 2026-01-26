@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.components
+package com.example.one_badge.presentation.components.cards
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -22,19 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.one_badge.R
-import com.example.one_badge.data.models.TeamCard
+import com.example.one_badge.presentation.models.CardItem
 
 @Composable
-fun CardContent(
-    card: TeamCard,
+fun TeamInfoCard(
+    card: CardItem.TeamInfo,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -45,32 +40,9 @@ fun CardContent(
                 .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = card.title,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-        )
-
-        Spacer(Modifier.height(4.dp))
-
-        Box(
-            modifier =
-                Modifier
-                    .width(40.dp)
-                    .height(3.dp)
-                    .clip(RoundedCornerShape(2.dp))
-                    .background(MaterialTheme.colorScheme.primary),
-        )
-
-        Spacer(Modifier.height(12.dp))
-
-        Text(
-            text = card.subtitle,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
-            textAlign = TextAlign.Center,
+        CardHeader(
+            title = "Team Info",
+            subtitle = card.teamName,
         )
 
         if (card.badgeUrl.isNotBlank()) {
@@ -91,20 +63,6 @@ fun CardContent(
             }
         }
 
-        if (card.jerseyImageUrl.isNotBlank()) {
-            Spacer(Modifier.height(20.dp))
-            AsyncImage(
-                model = card.jerseyImageUrl,
-                contentDescription = stringResource(R.string.team_equipment_desc),
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(220.dp)
-                        .clip(RoundedCornerShape(16.dp)),
-                contentScale = ContentScale.Fit,
-            )
-        }
-
         Spacer(Modifier.height(20.dp))
 
         HorizontalDivider(
@@ -115,17 +73,22 @@ fun CardContent(
 
         Spacer(Modifier.height(16.dp))
 
-        if (card.id == 4L && card.title == "Social Media") {
-            SocialMediaLinks(card.details)
-        } else {
-            Text(
-                text = card.details,
-                style = MaterialTheme.typography.bodyMedium,
-                lineHeight = 20.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f),
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
+        Text(
+            text =
+                buildString {
+                    appendLine("Short Name: ${card.shortName}")
+                    appendLine("League: ${card.league}")
+                    appendLine("Country: ${card.country}")
+                    appendLine("Formed: ${card.formedYear}")
+                    appendLine("Stadium: ${card.stadium.name}")
+                    appendLine("Location: ${card.stadium.location}")
+                    append("Capacity: ${card.stadium.capacity}")
+                },
+            style = MaterialTheme.typography.bodyMedium,
+            lineHeight = 20.sp,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.85f),
+            modifier = Modifier.fillMaxWidth(),
+        )
 
         Spacer(Modifier.height(12.dp))
     }

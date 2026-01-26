@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.theme
+package com.example.one_badge.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
