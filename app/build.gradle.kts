@@ -23,10 +23,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        val sportsDbApiKey = project.findProperty("SPORTS_DB_API_KEY") as String?
+
         buildConfigField(
             "String",
             "SPORTS_DB_API_KEY",
-            "\"${project.findProperty("SPORTS_DB_API_KEY")}\"",
+            "\"${sportsDbApiKey ?: ""}\"",
         )
     }
     buildTypes {

@@ -1,9 +1,9 @@
-package com.example.one_badge.ui.screens.home
+package com.example.one_badge.presentation.screens.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.one_badge.data.models.toTeamCardData
+import com.example.one_badge.data.models.toTeamData
 import com.example.one_badge.data.repository.TeamRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,7 +37,7 @@ class HomeViewModel
                     team?.let {
                         _uiState.value =
                             HomeUiState(
-                                teamData = it.toTeamCardData(),
+                                teamData = it.toTeamData(),
                                 isLoading = false,
                             )
                     }

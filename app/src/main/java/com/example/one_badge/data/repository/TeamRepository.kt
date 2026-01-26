@@ -18,7 +18,7 @@ class TeamRepository(
     }
 
     suspend fun getTeamByName(teamName: String): TeamResponse {
-        return api.searchTeams(teamName)
+        return api.searchTeams(teamName = teamName)
     }
 
     suspend fun getCachedTeams(): List<CachedTeam> {

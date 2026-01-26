@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.screens.home
+package com.example.one_badge.presentation.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -32,10 +32,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.one_badge.R
-import com.example.one_badge.data.models.TeamCard
-import com.example.one_badge.ui.components.AppTopBar
-import com.example.one_badge.ui.components.Carousel
-import com.example.one_badge.ui.components.SwipeCard
+import com.example.one_badge.presentation.components.AppTopBar
+import com.example.one_badge.presentation.components.Carousel
+import com.example.one_badge.presentation.components.SwipeCard
+import com.example.one_badge.presentation.models.CardItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,7 +45,7 @@ fun HomeScreen(
     onBackToTeamSelection: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    var selectedCard by remember { mutableStateOf<TeamCard?>(null) }
+    var selectedCard by remember { mutableStateOf<CardItem?>(null) }
 
     Scaffold(
         topBar = {
@@ -109,8 +109,8 @@ fun HomeScreen(
 
 @Composable
 private fun CarouselSection(
-    cards: List<TeamCard>,
-    onCardClick: (TeamCard) -> Unit,
+    cards: List<CardItem>,
+    onCardClick: (CardItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -128,7 +128,7 @@ private fun CarouselSection(
 
 @Composable
 private fun SwipeCardSection(
-    card: TeamCard,
+    card: CardItem,
     onSwiped: () -> Unit,
 ) {
     Box(

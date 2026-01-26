@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.screens.team
+package com.example.one_badge.presentation.screens.team
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,7 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.one_badge.R
-import com.example.one_badge.ui.components.FanDialog
+import com.example.one_badge.presentation.components.FanDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

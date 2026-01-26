@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.screens.team
+package com.example.one_badge.presentation.screens.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

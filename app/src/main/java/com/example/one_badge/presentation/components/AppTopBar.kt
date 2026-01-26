@@ -1,4 +1,4 @@
-package com.example.one_badge.ui.components
+package com.example.one_badge.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
