@@ -4,7 +4,13 @@ import com.example.one_badge.data.local.cachedTeam.CachedTeam
 import com.example.one_badge.data.local.cachedTeam.CachedTeamDao
 import com.example.one_badge.data.local.userPreferences.UserPreferences
 import com.example.one_badge.data.local.userPreferences.UserPreferencesDao
+import com.example.one_badge.data.models.Team
+import com.example.one_badge.data.models.TeamData
 import com.example.one_badge.data.models.TeamResponse
+import com.example.one_badge.data.models.toLeagueStanding
+import com.example.one_badge.data.models.toMatchInfo
+import com.example.one_badge.data.models.toPlayerInfo
+import com.example.one_badge.data.models.toTeamData
 import com.example.one_badge.data.remote.SportsDbApi
 import kotlinx.coroutines.flow.Flow
 
@@ -89,5 +95,29 @@ class TeamRepository(
     suspend fun isFirstLaunch(): Boolean {
         val prefs = userPreferencesDao.getUserPreferencesOnce()
         return prefs?.isFirstLaunch ?: true
+    }
+
+    suspend fun getTeamExtras(team: Team): TeamData {
+        val teamId = team.idTeam ?: return team.toTeamData()
+
+        val next = api.getNextMatches(teamId = teamId)
+        val last = api.getLastMatches(teamId = teamId)
+        val players = api.getPlayers(teamId = teamId)
+        val table =
+            if (team.idLeague != null) {
+                api.getLeagueTable(
+                    leagueId = team.idLeague,
+                    season = "2025-2026",
+                )
+            } else {
+                null
+            }
+
+        return team.toTeamData().copy(
+            nextMatch = next.events?.firstOrNull()?.toMatchInfo(),
+            lastMatches = last.results?.map { it.toMatchInfo() } ?: emptyList(),
+            squad = players.player?.map { it.toPlayerInfo() } ?: emptyList(),
+            leagueTable = table?.table?.map { it.toLeagueStanding() } ?: emptyList(),
+        )
     }
 }

@@ -17,11 +17,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -54,6 +58,17 @@ fun TeamSelectionScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showWelcomeDialog by remember { mutableStateOf(true) }
+    val teams by remember(uiState.teams, uiState.searchQuery) {
+        mutableStateOf(
+            if (uiState.searchQuery.isBlank()) {
+                uiState.teams
+            } else {
+                uiState.teams.filter {
+                    it.name.contains(uiState.searchQuery, ignoreCase = true)
+                }
+            },
+        )
+    }
 
     LaunchedEffect(Unit) {
         viewModel.loadTeams()
@@ -142,7 +157,13 @@ fun TeamSelectionScreen(
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp),
                     ) {
-                        items(uiState.teams) { team ->
+                        item {
+                            TeamSearchBar(
+                                query = uiState.searchQuery,
+                                onQueryChange = viewModel::onSearchQueryChange,
+                            )
+                        }
+                        items(teams) { team ->
                             TeamCard(
                                 team = team,
                                 onClick = { onTeamSelected(team.name) },
@@ -153,6 +174,27 @@ fun TeamSelectionScreen(
             }
         }
     }
+}
+
+@Composable
+private fun TeamSearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+) {
+    OutlinedTextField(
+        value = query,
+        onValueChange = onQueryChange,
+        modifier = Modifier.fillMaxWidth(),
+        placeholder = { Text("Search teams…") },
+        singleLine = true,
+        shape = RoundedCornerShape(12.dp),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Filled.Search,
+                contentDescription = "Search",
+            )
+        },
+    )
 }
 
 @Composable

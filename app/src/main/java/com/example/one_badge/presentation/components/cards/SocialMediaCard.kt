@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.example.one_badge.R
+import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 
 @Composable
@@ -47,7 +48,7 @@ fun SocialMediaCard(
     ) {
         CardHeader(
             title = "Social Media",
-            subtitle = card.teamName,
+            subtitle = "Connect",
         )
 
         Spacer(Modifier.height(20.dp))
@@ -65,6 +66,15 @@ fun SocialMediaCard(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.fillMaxWidth(),
         ) {
+            card.links.website?.let { url ->
+                SocialMediaItem(
+                    iconRes = R.drawable.website,
+                    text = stringResource(R.string.website),
+                    contentDescription = stringResource(R.string.website),
+                    onClick = { openUrl(context, "https://$url") },
+                )
+            }
+
             card.links.facebook?.let { url ->
                 SocialMediaItem(
                     iconRes = R.drawable.facebook,

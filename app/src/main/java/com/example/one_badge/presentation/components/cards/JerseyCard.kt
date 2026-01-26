@@ -20,6 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.one_badge.R
+import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 
 @Composable
@@ -37,7 +38,7 @@ fun JerseyCard(
     ) {
         CardHeader(
             title = "Jersey",
-            subtitle = card.teamName,
+            subtitle = "Threads",
         )
 
         Spacer(Modifier.height(20.dp))

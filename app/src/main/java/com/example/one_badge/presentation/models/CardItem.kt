@@ -1,5 +1,8 @@
 package com.example.one_badge.presentation.models
 
+import com.example.one_badge.data.models.LeagueStanding
+import com.example.one_badge.data.models.MatchInfo
+import com.example.one_badge.data.models.PlayerInfo
 import com.example.one_badge.data.models.SocialMediaLinks
 import com.example.one_badge.data.models.StadiumInfo
 import com.example.one_badge.data.models.TeamData
@@ -15,6 +18,7 @@ sealed interface CardItem {
         override val id: String = "team_info",
         val teamName: String,
         val shortName: String,
+        val keyword: String,
         val league: String,
         val country: String,
         val formedYear: String,
@@ -39,6 +43,26 @@ sealed interface CardItem {
         val teamName: String,
         val links: SocialMediaLinks,
     ) : CardItem
+
+    data class NextMatch(
+        override val id: String = "next_match",
+        val match: MatchInfo,
+    ) : CardItem
+
+    data class PreviousMatches(
+        override val id: String = "prev_matches",
+        val matches: List<MatchInfo>,
+    ) : CardItem
+
+    data class Squad(
+        override val id: String = "squad",
+        val players: List<PlayerInfo>,
+    ) : CardItem
+
+    data class LeagueTable(
+        override val id: String = "league_table",
+        val table: List<LeagueStanding>,
+    ) : CardItem
 }
 
 /**
@@ -57,6 +81,7 @@ fun TeamData.toCardItems(): List<CardItem> =
                 formedYear = formedYear,
                 stadium = stadium,
                 badgeUrl = images.badge,
+                keyword = keyword,
             ),
         )
 
@@ -86,5 +111,19 @@ fun TeamData.toCardItems(): List<CardItem> =
                     links = socialMedia,
                 ),
             )
+        }
+
+        nextMatch?.let {
+            add(CardItem.NextMatch(match = it))
+        }
+
+        add(CardItem.PreviousMatches(matches = lastMatches))
+
+        if (squad.isNotEmpty()) {
+            add(CardItem.Squad(players = squad))
+        }
+
+        if (leagueTable.isNotEmpty()) {
+            add(CardItem.LeagueTable(table = leagueTable))
         }
     }

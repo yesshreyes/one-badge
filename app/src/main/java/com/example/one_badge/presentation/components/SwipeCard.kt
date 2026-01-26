@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.example.one_badge.presentation.components.cards.CardContent
 import com.example.one_badge.presentation.models.CardItem
 import kotlinx.coroutines.launch
 import kotlin.math.abs

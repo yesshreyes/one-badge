@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.one_badge.R
+import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 
 @Composable
@@ -77,11 +78,12 @@ fun TeamInfoCard(
             text =
                 buildString {
                     appendLine("Short Name: ${card.shortName}")
-                    appendLine("League: ${card.league}")
-                    appendLine("Country: ${card.country}")
+                    appendLine("Nickname: ${card.keyword}")
                     appendLine("Formed: ${card.formedYear}")
-                    appendLine("Stadium: ${card.stadium.name}")
                     appendLine("Location: ${card.stadium.location}")
+                    appendLine("Country: ${card.country}")
+                    appendLine("League: ${card.league}")
+                    appendLine("Stadium: ${card.stadium.name}")
                     append("Capacity: ${card.stadium.capacity}")
                 },
             style = MaterialTheme.typography.bodyMedium,

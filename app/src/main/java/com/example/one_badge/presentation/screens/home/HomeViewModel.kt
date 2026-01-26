@@ -3,7 +3,6 @@ package com.example.one_badge.presentation.screens.home
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.one_badge.data.models.toTeamData
 import com.example.one_badge.data.repository.TeamRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,15 +31,21 @@ class HomeViewModel
         private fun fetchTeamData(forceRefresh: Boolean = false) {
             viewModelScope.launch {
                 _uiState.value = _uiState.value.copy(isLoading = true, error = null)
+
                 try {
-                    val team = repository.getTeamByName(teamName).teams?.firstOrNull()
-                    team?.let {
-                        _uiState.value =
-                            HomeUiState(
-                                teamData = it.toTeamData(),
-                                isLoading = false,
-                            )
-                    }
+                    val team =
+                        repository.getTeamByName(teamName)
+                            .teams
+                            ?.firstOrNull()
+                            ?: throw IllegalStateException("Team not found")
+
+                    val fullTeamData = repository.getTeamExtras(team)
+
+                    _uiState.value =
+                        HomeUiState(
+                            teamData = fullTeamData,
+                            isLoading = false,
+                        )
                 } catch (e: Exception) {
                     _uiState.value =
                         _uiState.value.copy(
