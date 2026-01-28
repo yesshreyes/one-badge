@@ -1,6 +1,6 @@
 <resources>
     <!-- App Information -->
-    <string name="app_name">one-badge</string>
+    <string name="app_name">OneBadge</string>
     <string name="app_name_one">One</string>
     <string name="app_name_badge">Badge</string>
 
