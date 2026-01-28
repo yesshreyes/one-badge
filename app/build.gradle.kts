@@ -12,11 +12,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.one_badge"
+    namespace = "com.one_badge.app"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.one_badge"
+        applicationId = "com.one_badge.app"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
@@ -38,6 +38,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {

@@ -1,0 +1,123 @@
+package com.one_badge.app.presentation.models
+
+import com.one_badge.app.data.models.LeagueStanding
+import com.one_badge.app.data.models.MatchInfo
+import com.one_badge.app.data.models.PlayerInfo
+import com.one_badge.app.data.models.SocialMediaLinks
+import com.one_badge.app.data.models.StadiumInfo
+import com.one_badge.app.data.models.TeamData
+
+/**
+ * Sealed interface representing different types of cards that can be displayed.
+ * Each card type contains only the data it needs to render.
+ */
+sealed interface CardItem {
+    val id: String
+
+    data class TeamInfo(
+        override val id: String = "team_info",
+        val teamName: String,
+        val shortName: String,
+        val keyword: String,
+        val league: String,
+        val country: String,
+        val formedYear: String,
+        val stadium: StadiumInfo,
+        val badgeUrl: String,
+    ) : CardItem
+
+    data class Description(
+        override val id: String = "description",
+        val teamName: String,
+        val description: String,
+    ) : CardItem
+
+    data class Jersey(
+        override val id: String = "jersey",
+        val teamName: String,
+        val jerseyImageUrl: String,
+    ) : CardItem
+
+    data class SocialMedia(
+        override val id: String = "social_media",
+        val teamName: String,
+        val links: SocialMediaLinks,
+    ) : CardItem
+
+    data class NextMatch(
+        override val id: String = "next_match",
+        val match: MatchInfo,
+    ) : CardItem
+
+    data class PreviousMatches(
+        override val id: String = "prev_matches",
+        val matches: List<MatchInfo>,
+    ) : CardItem
+
+    data class Squad(
+        override val id: String = "squad",
+        val players: List<PlayerInfo>,
+    ) : CardItem
+
+    data class LeagueTable(
+        override val id: String = "league_table",
+        val table: List<LeagueStanding>,
+    ) : CardItem
+}
+
+/**
+ * Extension function to convert TeamData to a list of CardItems.
+ * Only includes cards that have valid data.
+ */
+fun TeamData.toCardItems(): List<CardItem> =
+    buildList {
+        add(
+            CardItem.TeamInfo(
+                teamName = name,
+                shortName = shortName,
+                league = league,
+                country = country,
+                formedYear = formedYear,
+                stadium = stadium,
+                badgeUrl = images.badge,
+                keyword = keyword,
+            ),
+        )
+        add(
+            CardItem.Description(
+                teamName = name,
+                description = description.ifBlank { "No description available" },
+            ),
+        )
+
+        add(CardItem.PreviousMatches(matches = lastMatches))
+
+        nextMatch?.let {
+            add(CardItem.NextMatch(match = it))
+        }
+
+        if (leagueTable.isNotEmpty()) {
+            add(CardItem.LeagueTable(table = leagueTable))
+        }
+
+        if (squad.isNotEmpty()) {
+            add(CardItem.Squad(players = squad))
+        }
+
+        if (images.jersey.isNotBlank()) {
+            add(
+                CardItem.Jersey(
+                    teamName = name,
+                    jerseyImageUrl = images.jersey,
+                ),
+            )
+        }
+        if (socialMedia.hasAnyLink()) {
+            add(
+                CardItem.SocialMedia(
+                    teamName = name,
+                    links = socialMedia,
+                ),
+            )
+        }
+    }
