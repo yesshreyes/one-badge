@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.one_badge",
+  "applicationId": "com.one_badge.app",
   "variantName": "release",
   "elements": [
     {
