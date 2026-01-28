@@ -34,7 +34,7 @@ class TeamSelectionViewModel
                 "Real Madrid",
                 "Barcelona",
                 "Bayern Munich",
-                "PSG",
+                "Paris SG",
                 "Juventus",
                 "AC Milan",
                 "Inter Milan",
