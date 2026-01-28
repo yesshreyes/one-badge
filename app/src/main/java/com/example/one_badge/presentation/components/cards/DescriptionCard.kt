@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.one_badge.R
 import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 
@@ -33,7 +35,7 @@ fun DescriptionCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "Description",
+            title = stringResource(R.string.card_description),
             subtitle = card.teamName,
         )
 

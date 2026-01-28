@@ -1,5 +1,4 @@
 package com.example.one_badge.presentation.components.cards
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.example.one_badge.R
 import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 import java.time.Duration
@@ -43,15 +44,16 @@ fun NextMatchCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "Next Match",
+            title = stringResource(R.string.card_next_match),
             subtitle = "${match.homeTeam} vs ${match.awayTeam}",
         )
+
         if (match.banner.isNotBlank()) {
             Spacer(Modifier.height(16.dp))
 
             AsyncImage(
                 model = match.banner,
-                contentDescription = "Match banner",
+                contentDescription = stringResource(R.string.match_banner_desc),
                 modifier =
                     Modifier
                         .fillMaxWidth()
@@ -67,7 +69,11 @@ fun NextMatchCard(
 
         if (countdown.isNotBlank()) {
             Text(
-                text = "Kickoff in $countdown",
+                text =
+                    stringResource(
+                        R.string.kickoff_in,
+                        countdown,
+                    ),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary,
             )
@@ -77,11 +83,11 @@ fun NextMatchCard(
         Text(
             text =
                 buildString {
-                    appendLine("League: ${match.league}")
-                    appendLine("Season: ${match.season}")
-                    appendLine("Date: ${match.date}")
-                    appendLine("Time: ${match.time}")
-                    appendLine("Venue: ${match.venue}")
+                    appendLine(stringResource(R.string.label_league, match.league))
+                    appendLine(stringResource(R.string.label_season, match.season))
+                    appendLine(stringResource(R.string.label_date, match.date))
+                    appendLine(stringResource(R.string.label_time, match.time))
+                    appendLine(stringResource(R.string.label_venue, match.venue))
                 },
             style = MaterialTheme.typography.bodyMedium,
             lineHeight = 20.sp,

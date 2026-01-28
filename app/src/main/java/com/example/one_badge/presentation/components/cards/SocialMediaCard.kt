@@ -47,8 +47,8 @@ fun SocialMediaCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "Social Media",
-            subtitle = "Connect",
+            title = stringResource(R.string.card_social_media),
+            subtitle = stringResource(R.string.subtitle_connect),
         )
 
         Spacer(Modifier.height(20.dp))

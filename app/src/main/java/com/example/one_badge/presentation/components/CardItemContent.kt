@@ -24,11 +24,11 @@ fun CardItemContent(
     when (item) {
         is CardItem.TeamInfo -> TeamInfoCard(item, modifier)
         is CardItem.Description -> DescriptionCard(item, modifier)
+        is CardItem.PreviousMatches -> PrevMatchCard(item)
+        is CardItem.NextMatch -> NextMatchCard(item)
+        is CardItem.LeagueTable -> LeagueTableCard(item)
+        is CardItem.Squad -> SquadCard(item)
         is CardItem.Jersey -> JerseyCard(item, modifier)
         is CardItem.SocialMedia -> SocialMediaCard(item, modifier)
-        is CardItem.NextMatch -> NextMatchCard(item)
-        is CardItem.PreviousMatches -> PrevMatchCard(item)
-        is CardItem.Squad -> SquadCard(item)
-        is CardItem.LeagueTable -> LeagueTableCard(item)
     }
 }

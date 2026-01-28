@@ -21,8 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.one_badge.R
 import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 
@@ -40,8 +42,8 @@ fun SquadCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "Squad",
-            subtitle = "Players",
+            title = stringResource(R.string.card_squad),
+            subtitle = stringResource(R.string.subtitle_players),
         )
 
         Spacer(Modifier.height(16.dp))
@@ -81,7 +83,6 @@ fun SquadCard(
 
                 Spacer(Modifier.width(12.dp))
 
-                // 🟢 PLAYER INFO
                 Column(
                     modifier = Modifier.weight(1f),
                 ) {

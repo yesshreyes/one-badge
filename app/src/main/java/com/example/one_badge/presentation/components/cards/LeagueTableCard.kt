@@ -15,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.one_badge.R
 import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 
@@ -33,8 +35,8 @@ fun LeagueTableCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "League Table",
-            subtitle = "Standings",
+            title = stringResource(R.string.card_league_table),
+            subtitle = stringResource(R.string.subtitle_standings),
         )
 
         Spacer(Modifier.height(16.dp))
@@ -46,13 +48,13 @@ fun LeagueTableCard(
                     .padding(horizontal = 6.dp),
         ) {
             Text(
-                text = "Team",
+                text = stringResource(R.string.league_table_team),
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             )
             Text(
-                text = "Pts",
+                text = stringResource(R.string.league_table_points),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             )

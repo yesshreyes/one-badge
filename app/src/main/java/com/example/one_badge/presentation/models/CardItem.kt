@@ -71,7 +71,6 @@ sealed interface CardItem {
  */
 fun TeamData.toCardItems(): List<CardItem> =
     buildList {
-        // Always include team info
         add(
             CardItem.TeamInfo(
                 teamName = name,
@@ -84,8 +83,6 @@ fun TeamData.toCardItems(): List<CardItem> =
                 keyword = keyword,
             ),
         )
-
-        // Always include description (with fallback text)
         add(
             CardItem.Description(
                 teamName = name,
@@ -93,7 +90,20 @@ fun TeamData.toCardItems(): List<CardItem> =
             ),
         )
 
-        // Only include jersey if image is available
+        add(CardItem.PreviousMatches(matches = lastMatches))
+
+        nextMatch?.let {
+            add(CardItem.NextMatch(match = it))
+        }
+
+        if (leagueTable.isNotEmpty()) {
+            add(CardItem.LeagueTable(table = leagueTable))
+        }
+
+        if (squad.isNotEmpty()) {
+            add(CardItem.Squad(players = squad))
+        }
+
         if (images.jersey.isNotBlank()) {
             add(
                 CardItem.Jersey(
@@ -102,8 +112,6 @@ fun TeamData.toCardItems(): List<CardItem> =
                 ),
             )
         }
-
-        // Only include social media if at least one link exists
         if (socialMedia.hasAnyLink()) {
             add(
                 CardItem.SocialMedia(
@@ -111,19 +119,5 @@ fun TeamData.toCardItems(): List<CardItem> =
                     links = socialMedia,
                 ),
             )
-        }
-
-        nextMatch?.let {
-            add(CardItem.NextMatch(match = it))
-        }
-
-        add(CardItem.PreviousMatches(matches = lastMatches))
-
-        if (squad.isNotEmpty()) {
-            add(CardItem.Squad(players = squad))
-        }
-
-        if (leagueTable.isNotEmpty()) {
-            add(CardItem.LeagueTable(table = leagueTable))
         }
     }

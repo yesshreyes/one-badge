@@ -1,5 +1,4 @@
 package com.example.one_badge.presentation.components.cards
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,10 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.one_badge.R
 import com.example.one_badge.presentation.components.CardHeader
 import com.example.one_badge.presentation.models.CardItem
 
@@ -40,15 +41,15 @@ fun PrevMatchCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "Previous Matches",
-            subtitle = "Recent results",
+            title = stringResource(R.string.card_previous_matches),
+            subtitle = stringResource(R.string.subtitle_recent_results),
         )
 
         Spacer(Modifier.height(16.dp))
 
         if (card.matches.isEmpty()) {
             Text(
-                text = "No recent matches available",
+                text = stringResource(R.string.no_recent_matches),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             )
@@ -57,7 +58,6 @@ fun PrevMatchCard(
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    // 🔹 Match banner (optional)
                     if (match.banner.isNotBlank()) {
                         AsyncImage(
                             model = match.banner,

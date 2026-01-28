@@ -24,11 +24,11 @@ fun NavGraph(
             TeamSelectionScreen(
                 viewModel = viewModel,
                 onTeamSelected = { team ->
-                    viewModel.selectTeam(team) // This saves to repository
+                    viewModel.selectTeam(team)
                     navController.navigate(HomeRoute(team)) {
                         popUpTo<TeamSelectionRoute> { inclusive = true }
                     }
-                    viewModel.clearSelectedTeamState() // Add this line
+                    viewModel.clearSelectedTeamState()
                 },
             )
         }

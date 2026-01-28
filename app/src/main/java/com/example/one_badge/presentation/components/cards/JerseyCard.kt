@@ -37,8 +37,8 @@ fun JerseyCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "Jersey",
-            subtitle = "Threads",
+            title = stringResource(R.string.card_jersey),
+            subtitle = stringResource(R.string.subtitle_threads),
         )
 
         Spacer(Modifier.height(20.dp))

@@ -1,9 +1,5 @@
 package com.example.one_badge.data.models
 
-/**
- * Clean domain model representing team data.
- * This is the single source of truth for team information in the app.
- */
 data class TeamData(
     val id: String,
     val name: String,
@@ -87,9 +83,6 @@ data class LeagueStanding(
     val badge: String,
 )
 
-/**
- * Extension function to convert API Team model to domain TeamData model.
- */
 fun Team.toTeamData(): TeamData =
     TeamData(
         id = idTeam ?: "",

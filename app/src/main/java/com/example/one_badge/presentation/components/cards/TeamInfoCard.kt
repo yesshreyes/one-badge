@@ -42,7 +42,7 @@ fun TeamInfoCard(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         CardHeader(
-            title = "Team Info",
+            title = stringResource(R.string.card_team_info),
             subtitle = card.teamName,
         )
 

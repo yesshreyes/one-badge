@@ -14,6 +14,33 @@
     <string name="jersey">Jersey</string>
     <string name="social_media">Social Media</string>
 
+    <!-- Card Titles -->
+    <string name="card_team_info">Team Info</string>
+    <string name="card_description">Description</string>
+    <string name="card_jersey">Jersey</string>
+    <string name="card_social_media">Social Media</string>
+    <string name="card_league_table">League Table</string>
+    <string name="card_next_match">Next Match</string>
+    <string name="card_previous_matches">Previous Matches</string>
+    <string name="card_squad">Squad</string>
+
+    <!-- Card Subtitles -->
+    <string name="subtitle_standings">Standings</string>
+    <string name="subtitle_threads">Threads</string>
+    <string name="subtitle_connect">Connect</string>
+    <string name="subtitle_players">Players</string>
+    <string name="subtitle_recent_results">Recent results</string>
+
+    <!-- League Table -->
+    <string name="league_table_team">Team</string>
+    <string name="league_table_points">Pts</string>
+
+    <!-- Match -->
+    <string name="kickoff_in">Kickoff in %1$s</string>
+    <string name="match_started">Match started</string>
+    <string name="no_recent_matches">No recent matches available</string>
+
+
     <!-- Team Information Labels -->
     <string name="short_name_label">Short Name: %1$s</string>
     <string name="league_label">League: %1$s</string>
@@ -66,4 +93,13 @@
     <string name="twitter_logo_desc">Twitter Logo</string>
     <string name="instagram_logo_desc">Instagram Logo</string>
     <string name="youtube_logo_desc">YouTube Logo</string>
+    <string name="match_banner_desc">Match banner</string>
+
+    <!-- Match Details -->
+    <string name="label_league">League: %1$s</string>
+    <string name="label_season">Season: %1$s</string>
+    <string name="label_date">Date: %1$s</string>
+    <string name="label_time">Time: %1$s</string>
+    <string name="label_venue">Venue: %1$s</string>
+
 </resources>
